@@ -1,0 +1,16 @@
+.content{
+    margin-left: 294px;
+    padding: 30px;
+    height: 100vh;
+    @include flex(center,center);
+    flex-direction: column;
+    &>div{
+        width: 100%;
+    }
+    @include desktop{
+        margin-left: 200px;
+    }
+    @include tablet{
+        margin-left: 80px;
+    }
+}

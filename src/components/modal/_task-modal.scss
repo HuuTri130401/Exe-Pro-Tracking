@@ -1,0 +1,27 @@
+.task {
+    font-weight: 500;
+    overflow: hidden;
+    &-header {
+        @include flex(space-evenly, center);
+        &__report {
+            width: 50%;
+            @include flex(flex-end, center);
+            &-item {
+                cursor: pointer;
+                & > span {
+                    padding-right: 20px;
+                }
+            }
+        }
+    }
+    &-name {
+        @include flex(flex-start, center);
+    }
+    &-description {
+        font-weight: bold;
+        font-size: 20px;
+    }
+    p{
+        margin: 10px 0;
+    }
+}

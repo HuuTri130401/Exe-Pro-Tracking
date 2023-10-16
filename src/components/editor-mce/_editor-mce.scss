@@ -1,0 +1,10 @@
+.mce-btns{
+    display: flex;
+    padding-top: 12px;
+    &>button{
+        margin-right: 6px;
+    }
+    &>.hidden{
+        display: none;
+    }
+}

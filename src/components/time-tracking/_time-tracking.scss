@@ -1,0 +1,6 @@
+.time-tracking{
+    @include flex(space-between,center);
+    input{
+        width: 20% !important;
+    }
+}

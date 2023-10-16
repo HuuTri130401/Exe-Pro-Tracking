@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 100%;
+    @include desktop {
+        font-size: 80% !important;
+    }
+    @include tablet {
+        font-size: 60% !important;
+    }
+}
+
+body,
+html {
+    background-color: $white;
+    color: rgba($black, 0.85);
+    font-family: $font-family;
+    line-height: 1.5715;
+    margin: 0;
+}
+
+body {
+    font-size: $fs-14;
+    position: relative;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+button {
+    outline: none;
+}
+
+input {
+    height: 35px;
+    background: rgb(255, 255, 255);
+    padding: 2px 5px;
+    border-radius: 10px;
+}

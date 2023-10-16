@@ -1,0 +1,46 @@
+.header{
+    h3{
+        margin: 20px 0;
+        font-weight: bold;
+    }
+    .info{
+        @include flex(flex-start,center);
+        .search-block{
+            position: relative;
+            .search{
+                height: 32px;
+                width: 100px;
+                background-color: rgb(250, 251, 252);
+                border: 2px solid rgb(223, 225, 230);
+                border-radius: 7px;
+                padding-left: 32px;
+                transition: all .3s ease;
+                &:hover,&:focus{
+                    width: 200px;
+                    outline: auto;
+                }
+            }
+            .fa-search{
+                position: absolute;
+                left: 5%;
+                top: 25%;
+                color: $black;
+            }
+        }
+        .avatar-group{
+            display: flex;
+            margin-left: 20px;
+            flex-direction: row-reverse;
+            img{
+                transition: all .3s ease;
+                &:hover{
+                    transform: translateY(-10px);
+                }
+            }
+        }
+        .text{
+            text-align: center;
+            line-height: 35px;
+        }
+    }
+}
