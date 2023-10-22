@@ -20,9 +20,9 @@ publicClient.interceptors.request.use(config => {
             "Content-Type": "application/json",
         }
     }
-}, error => {
-    return Promise.reject(error);
-}
+    }, error => {
+        return Promise.reject(error);
+    }
 );
 
 publicClient.interceptors.response.use(({ data }) => {

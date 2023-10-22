@@ -24,7 +24,6 @@ const Dashboard = ({ Component, title }) => {
         <Component />
       </div>
       <EditDrawer />
-
     </>
   )
 }

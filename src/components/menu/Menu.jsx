@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { Button } from 'antd';
-import { FiPaperclip, FiSettings } from 'react-icons/fi';
+import { FiPackage, FiPaperclip, FiSettings } from 'react-icons/fi';
 import { MdCreate, MdDashboard, MdEqualizer, MdErrorOutline, MdOutlineLocalShipping, MdTask, MdViewInAr } from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import { userLocalStorage } from '../../utils/config';
@@ -35,11 +35,11 @@ function Menu() {
                 <span>Project Management</span>
             </NavLink>
             <hr></hr>
-            <div className="menu__item">
-                <MdOutlineLocalShipping className='menu__item-icon' />
+
+            <NavLink to='/package' className="menu__item">
+                <FiPackage className='menu__item-icon' />
                 <span>Package Management</span>
-                <span className='implemente'>Not implemented</span>
-            </div>
+            </NavLink>
             <div className="menu__item">
                 <MdOutlineLocalShipping className='menu__item-icon' />
                 <span>Releases</span>
