@@ -9,7 +9,7 @@ import Board from "./pages/board/Board";
 import CreateProject from "./pages/create-project/CreateProject";
 import ErrorPage from "./pages/error-page/ErrorPage";
 import ProjectManagement from "./pages/project-management/ProjectManagement";
-// import Login from "./pages/user-page/Login";
+import Login from "./pages/user-page/Login";
 import Register from "./pages/user-page/Register";
 import GoogleLoginButton from "./pages/user-page/GoogleLoginButton";
 import PackageManagement from "./pages/package-management/PackageManagement";
@@ -20,10 +20,10 @@ function App() {
       <Routes>
         {/* User */}
         <Route element={<UserRoutes />}>
-          <Route index path="/" element={<UserLayout Component={GoogleLoginButton} />} />
-          <Route index path="/login" element={<UserLayout Component={GoogleLoginButton} />} />
-          {/* <Route index path="/" element={<UserLayout Component={Login} />} />
-          <Route index path="/login" element={<UserLayout Component={Login} />} /> */}
+          {/* <Route index path="/" element={<UserLayout Component={GoogleLoginButton} />} />
+          <Route index path="/login" element={<UserLayout Component={GoogleLoginButton} />} /> */}
+          <Route index path="/" element={<UserLayout Component={Login} />} />
+          <Route index path="/login" element={<UserLayout Component={Login} />} />
           <Route path="/register" element={<UserLayout Component={Register} />} />
         </Route>
 
