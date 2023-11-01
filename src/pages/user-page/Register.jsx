@@ -24,25 +24,30 @@ const Register = () => {
                 className='user__pages-form'
             >
                 <Form.Item name='email' className='mb-3' label={<span style={{ color: '#fff' }}>Email</span>} rules={[
-                    { type: 'email', message: 'Không phải email !' },
-                    { required: true, message: 'Email trống !' },]}>
+                    { type: 'email', message: 'Please input email !' },
+                    { required: true, message: 'Email Empty !' },]}>
                     <Input />
                 </Form.Item>
 
-                <Form.Item label={<span style={{ color: '#fff' }}>Mật khẩu</span>} name="passWord" className='mb-3'
-                    rules={[{ required: true, message: 'Chưa nhập mật khẩu !' }]}>
+                <Form.Item label={<span style={{ color: '#fff' }}>Password</span>} name="password" className='mb-3'
+                    rules={[{ required: true, message: 'Please input password !' }]}>
                     <Input.Password />
                 </Form.Item>
 
-                <Form.Item name='name' className='mb-3' label={<span style={{ color: '#fff' }}>Họ tên</span>} rules={[
-                    { required: true, message: 'Họ tên trống !' },]}>
+                <Form.Item label={<span style={{ color: '#fff' }}>Confirm Password</span>} name="confirmPassword" className='mb-3'
+                    rules={[{ required: true, message: 'Please input confirm password !' }]}>
+                    <Input.Password />
+                </Form.Item>
+
+                <Form.Item name='username' className='mb-3' label={<span style={{ color: '#fff' }}>User Name</span>} rules={[
+                    { required: true, message: 'Please input user name !' },]}>
                     <Input />
                 </Form.Item>
 
-                <Form.Item name='phoneNumber' className='mb-3' label={<span style={{ color: '#fff' }}>Số điện thoại</span>} rules={[
-                    { required: true, message: 'Số điện thoại trống !' },
-                    { max: 10, message: 'Tối đa 10 chữ số' },
-                    { min: 10, message: 'Tối thiểu 10 chữ số' }]}>
+                <Form.Item name='phone' className='mb-3' label={<span style={{ color: '#fff' }}>Phone Number</span>} rules={[
+                    { required: true, message: 'Please input phone number !' },
+                    { max: 11, message: 'Max is 11 number' },
+                    { min: 10, message: 'Min is 10 number' }]}>
 
                     <Input />
                 </Form.Item>
@@ -50,14 +55,14 @@ const Register = () => {
                 <Form.Item
                     wrapperCol={{ span: 24 }}>
                     <Link to={'/login'}>
-                        Bạn đã có tài khoản? <span style={{color: '#cc0000'}}>Quay lại trang đăng nhập</span>
+                        Are you have an account? <span style={{color: '#cc0000'}}>Back to Login</span>
                     </Link>
                 </Form.Item>
 
                 <Form.Item
                     wrapperCol={{ span: 24 }}>
                     <Button type="primary" htmlType="submit" style={{padding: '4px 20px 20px 20px', textAlign: 'center'}}>
-                        Đăng ký
+                        Sign Up
                     </Button>
                 </Form.Item>
             </Form>

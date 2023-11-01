@@ -9,13 +9,13 @@ import { userLocalStorage } from '../../utils/config';
 function Menu() {
     const { projectDetail } = useSelector(state => state.projectSlice);
     const navigate = useNavigate();
-    const user = userLocalStorage.get();
+    const customerInfor = userLocalStorage.get();
     return (
         <div className='menu'>
             <div className="menu__user">
-                <img src="./img/profile.png" alt="" />
+                <img src={customerInfor.customer.avatar || './img/profile.png'} alt="avatar" />
                 <div className="menu__user-info">
-                    <div className='framework'>{user.name}</div>
+                    <div className='framework'>{customerInfor.customer.username}</div>
                     <div className='project'>ProTracking</div>
                 </div>
             </div>

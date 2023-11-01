@@ -2,8 +2,8 @@ import { privateClient } from "../clients/private.client";
 import { publicClient } from "../clients/public.client";
 
 const projectApi = {
-    getAllProject:(user)=>{
-        return publicClient.get('Project/getAllProject');
+    getAllProject:(createdBy)=>{
+        return privateClient.get(`/Projects/GetAllOData?createdBy=${createdBy}`);
     },
     getProjectDetail:(projectId)=>{
         return  privateClient.get(`Project/getProjectDetail?id=${projectId}`);

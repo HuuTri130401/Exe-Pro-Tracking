@@ -20,8 +20,6 @@ function App() {
       <Routes>
         {/* User */}
         <Route element={<UserRoutes />}>
-          {/* <Route index path="/" element={<UserLayout Component={GoogleLoginButton} />} />
-          <Route index path="/login" element={<UserLayout Component={GoogleLoginButton} />} /> */}
           <Route index path="/" element={<UserLayout Component={Login} />} />
           <Route index path="/login" element={<UserLayout Component={Login} />} />
           <Route path="/register" element={<UserLayout Component={Register} />} />

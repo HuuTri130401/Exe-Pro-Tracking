@@ -15,7 +15,8 @@ privateClient.interceptors.request.use(config => {
         headers: {
             TokenCybersoft: TOKEN_CYBERSOFT,
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("TOKEN")}`
+            "Authorization": `Bearer ${localStorage.getItem("TOKEN")}`,
+            "Access-Control-Allow-Origin": "*"
         }
     }
 },

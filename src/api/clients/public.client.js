@@ -18,6 +18,7 @@ publicClient.interceptors.request.use(config => {
         headers: {
             TokenCybersoft: TOKEN_CYBERSOFT,
             "Content-Type": "application/json",
+            // 'Origin': 'http://localhost:3000'
         }
     }
     }, error => {

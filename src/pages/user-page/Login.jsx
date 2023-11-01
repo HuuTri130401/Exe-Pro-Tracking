@@ -16,7 +16,7 @@ const Login = () => {
   };
   return (
     <div className="user__pages">
-      <h2 className='user__pages-title'>Đăng nhập</h2>
+      <h2 className='user__pages-title'>Login</h2>
       <Form
         name="basic"
         layout='vertical'
@@ -28,27 +28,27 @@ const Login = () => {
         className='user__pages-form'
       >
         <Form.Item name='email' className='mb-3' label={<span style={{ color: '#fff' }}>Email</span>} rules={[
-          { type: 'email', message: 'Không phải email !' },
-          { required: true, message: 'Email trống !' },]}>
+          { type: 'email', message: 'Please input email !' },
+          { required: true, message: 'Email Empty !' },]}>
           <Input />
         </Form.Item>
 
-        <Form.Item label={<span style={{ color: '#fff' }}>Mật khẩu</span>} name="passWord" className='mb-3'
-          rules={[{ required: true, message: 'Chưa nhập mật khẩu !' }]}>
+        <Form.Item label={<span style={{ color: '#fff' }}>Password</span>} name="passWord" className='mb-3'
+          rules={[{ required: true, message: 'Please input password !' }]}>
           <Input.Password />
         </Form.Item>
 
         <Form.Item
           wrapperCol={{ span: 24 }}>
           <Button type="primary" htmlType="submit" style={{padding: '4px 20px 20px 20px', textAlign: 'center'}}>
-            Đăng nhập
+            Login
           </Button>
         </Form.Item>
 
         <Form.Item
           wrapperCol={{ span: 24 }}>
           <Link to={'/register'}>
-            Bạn chưa có tài khoản? <span>Đăng ký ngay</span>
+            Are you have an account? <span>Sign Up</span>
           </Link>
         </Form.Item>
       </Form>
