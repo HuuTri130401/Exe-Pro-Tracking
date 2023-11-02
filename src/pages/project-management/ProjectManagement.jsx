@@ -7,17 +7,20 @@ import SearchUserProject from '../../components/search/SearchUserProject'
 import { openDrawer } from '../../redux/slice/drawerSlice'
 import { editProject } from '../../redux/slice/projectSlice'
 import { assignUserProjectThunk, deleteProjectThunk, getAllProjectThunk, removeUserFromProject } from '../../redux/thunk/projectThunk'
-import { getUserThunk } from '../../redux/thunk/userThunk'
+import { getUserThunk } from '../../redux/thunk/userThunk';
+import { userLocalStorage } from "../../utils/config";
 const ProjectManagement = () => {
     const { projects } = useSelector(state => state.projectSlice);
     const { userSearch } = useSelector(state => state.userSlice);
     const dispatch = useDispatch();
     const [filteredInfo, setFilteredInfo] = useState({});
     const [sortedInfo, setSortedInfo] = useState({});
-
+    const creatorId = userLocalStorage.get();
+    console.log(typeof projects + ' Check type');
+    console.log(projects + ' Check type');
     useEffect(() => {
-        dispatch(getAllProjectThunk());
-    }, []);
+        dispatch(getAllProjectThunk(creatorId.customer.id));
+    }, [dispatch]);
 
 
     const handleChange = (pagination, filters, sorter) => {
@@ -33,36 +36,30 @@ const ProjectManagement = () => {
     };
 
 
-    const data = projects?.map((item) => {
-        return { text: item.projectName, value: item.projectName }
-    });
+    // const data = projects?.map((item) => {
+    //     return { text: item.listProjectByCreator.title, value: item.listProjectByCreator.title }
+    // });
 
     const column = [
         {
             title: 'Project ID',
-            dataIndex: 'id',
             key: 'id',
-            sorter: (item2, item1) => {
-                return item2.id - item1.id;
-            },
-            sortDirections: ['descend'],
-        },
-        {
-            title: 'Project name',
-            dataIndex: 'projectName',
-            key: 'projectName',
-            filterSearch: true,
-            filteredValue: filteredInfo.projectName || null,
-            filters: projects?.map((item) => {
-                return { text: item.projectName, value: item.projectName }
-            }),
-            onFilter: (value, record) => record.projectName.startsWith(value),
+            dataIndex: 'id',
             render: (text, record, index) => {
                 return <Link to={`/board/${record.id}`}> {text}</Link>
             },
+        },
+        {
+            title: 'Project Title',
+            key: 'title',
+            dataIndex: 'title',
+            filterSearch: true,
+            //filteredValue: filteredInfo.listProjectByCreator.title || null,
+            //filters: data,
+            //onFilter: (value, record) => record.listProjectByCreator.title.startsWith(value),
             sorter: (item2, item1) => {
-                let projectName1 = item1.projectName?.trim().toLowerCase();
-                let projectName2 = item2.projectName?.trim().toLowerCase();
+                let projectName1 = item1.listProjectByCreator.title?.trim().toLowerCase();
+                let projectName2 = item2.listProjectByCreator.title?.trim().toLowerCase();
                 if (projectName2 < projectName1) {
                     return -1;
                 }
@@ -70,12 +67,12 @@ const ProjectManagement = () => {
             },
         },
         {
-            title: 'Category',
-            dataIndex: 'categoryName',
-            key: 'categoryName',
+            title: 'Description',
+            key: 'description',
+            dataIndex: 'description',
             sorter: (item2, item1) => {
-                let categoryName1 = item1.categoryName?.trim().toLowerCase();
-                let categoryName2 = item2.categoryName?.trim().toLowerCase();
+                let categoryName1 = item1.listProjectByCreator.description?.trim().toLowerCase();
+                let categoryName2 = item2.listProjectByCreator.description?.trim().toLowerCase();
                 if (categoryName2 < categoryName1) {
                     return -1;
                 }
@@ -83,71 +80,63 @@ const ProjectManagement = () => {
             },
         },
         {
-            title: 'Creator',
-            key: 'creator',
+            title: 'CreatedBy',
+            key: 'createdBy',
+            dataIndex: 'createdBy',
             render: (text, record, index) => {
-                return <Tag color="green">{record.creator?.name}</Tag>
+                return <Tag color="green">{record.createdBy}</Tag>
             },
-            sorter: (item2, item1) => {
-                let creator1 = item1.creator?.name.trim().toLowerCase();
-                let creator2 = item2.creator?.name.trim().toLowerCase();
-                if (creator2 < creator1) {
-                    return -1;
-                }
-                return 1;
-            },
-
         },
-        {
-            title: 'Members',
-            key: 'members',
-            render: (text, record, index) => {
-                return <div>
-                    {record.members?.slice(0, 3).map((member, index) => {
-                        return (
-                            <Popover key={index} placement="top" content={() => {
-                                return <div style={{ overflowY: 'auto', maxHeight: '300px' }} >
-                                    <table className="table">
-                                        <tbody>
-                                            {record.members?.map((item, index) => {
-                                                return <tr key={index}>
-                                                    <td>{item.name}</td>
-                                                    <td>
-                                                        <Button className="ms-1 text-white" type="danger" size="small" style={{ background: 'red', borderRadius: '50%' }}
-                                                            onClick={() => dispatch(removeUserFromProject({ userId: item.userId, projectId: record.id }))}>
-                                                            X
-                                                        </Button>
-                                                    </td>
-                                                </tr>
-                                            })}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            }}>
-                                <Avatar key={index} src={member.avatar} />
-                            </Popover>
-                        )
-                    })}
+        ///////
+        // {
+        //     title: 'Members',
+        //     key: 'members',
+        //     render: (text, record, index) => {
+        //         return <div>
+        //             {record.members?.slice(0, 3).map((member, index) => {
+        //                 return (
+        //                     <Popover key={index} placement="top" content={() => {
+        //                         return <div style={{ overflowY: 'auto', maxHeight: '300px' }} >
+        //                             <table className="table">
+        //                                 <tbody>
+        //                                     {record.members?.map((item, index) => {
+        //                                         return <tr key={index}>
+        //                                             <td>{item.name}</td>
+        //                                             <td>
+        //                                                 <Button className="ms-1 text-white" type="danger" size="small" style={{ background: 'red', borderRadius: '50%' }}
+        //                                                     onClick={() => dispatch(removeUserFromProject({ userId: item.userId, projectId: record.id }))}>
+        //                                                     X
+        //                                                 </Button>
+        //                                             </td>
+        //                                         </tr>
+        //                                     })}
+        //                                 </tbody>
+        //                             </table>
+        //                         </div>
+        //                     }}>
+        //                         <Avatar key={index} src={member.avatar} />
+        //                     </Popover>
+        //                 )
+        //             })}
 
-                    {record.members?.length > 3 ? <Avatar>...</Avatar> : ''}
+        //             {record.members?.length > 3 ? <Avatar>...</Avatar> : ''}
 
-                    <Popover placement="rightTop" title={"Add member"} content={() => {
-                        return <SearchUserProject data={userSearch}
-                            onSelect={(value, option) => {
-                                dispatch(assignUserProjectThunk({
-                                    "projectId": record.id,
-                                    "userId": value * 1
-                                }))
-                            }}
-                            onSearch={(value) => dispatch(getUserThunk(value))}
-                        />
-                    }} trigger="click">
-                        <Button style={{ width: '30px', height: '30px', padding: 0, borderRadius: '50%' }}>+</Button>
-                    </Popover>
-                </div>
-            }
-
-        },
+        //             <Popover placement="rightTop" title={"Add member"} content={() => {
+        //                 return <SearchUserProject data={userSearch}
+        //                     onSelect={(value, option) => {
+        //                         dispatch(assignUserProjectThunk({
+        //                             "projectId": record.id,
+        //                             "userId": value * 1
+        //                         }))
+        //                     }}
+        //                     onSearch={(value) => dispatch(getUserThunk(value))}
+        //                 />
+        //             }} trigger="click">
+        //                 <Button style={{ width: '30px', height: '30px', padding: 0, borderRadius: '50%' }}>+</Button>
+        //             </Popover>
+        //         </div>
+            // }
+        // },
         {
             title: 'Action',
             dataIndex: '',
@@ -191,7 +180,10 @@ const ProjectManagement = () => {
                     <Button onClick={clearAll}>Clear filters and sorters</Button>
                 </Space>
             </div>
-            <Table pagination={{ showSizeChanger: false, pageSize: 6 }} columns={column} size='large' rowKey={"id"} dataSource={projects} onChange={handleChange} />
+            <Table pagination={{ showSizeChanger: false, pageSize: 6 }} columns={column} size='large' rowKey={"id"} 
+            //dataSource={Array.isArray(projects) ? projects : [projects]} 
+            dataSource={Array.isArray(projects.listProjectByCreator) ? projects.listProjectByCreator : []}
+            onChange={handleChange} />
         </div>
     )
 }

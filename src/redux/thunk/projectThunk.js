@@ -5,9 +5,9 @@ import { closeDrawer } from "../slice/drawerSlice";
 
 export const getAllProjectThunk = createAsyncThunk(
     'getAllProject',
-    async () => {
+    async (creatorId) => {
         try {
-            const { statusCode, content } = await projectApi.getAllProject();
+            const { statusCode, content } = await projectApi.getAllProject(creatorId);
             if (statusCode === 200) return content;
         } catch ({ message }) {
             openNotification('error', 'Thất bại', message);
