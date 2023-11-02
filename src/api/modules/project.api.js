@@ -6,7 +6,7 @@ const projectApi = {
         return privateClient.get(`/Projects/GetAllOData?createdBy=${createdBy}`);
     },
     getProjectDetail:(projectId)=>{
-        return  privateClient.get(`Project/getProjectDetail?id=${projectId}`);
+        return  privateClient.get(`Projects/GetProjectById?id=${projectId}`);
     },
     assignUserProject:(userProject)=>{
         return privateClient.post('Project/assignUserProject',userProject);

@@ -44,10 +44,7 @@ const ProjectManagement = () => {
         {
             title: 'Project ID',
             key: 'id',
-            dataIndex: 'id',
-            render: (text, record, index) => {
-                return <Link to={`/board/${record.id}`}> {text}</Link>
-            },
+            dataIndex: 'id'
         },
         {
             title: 'Project Title',
@@ -56,7 +53,10 @@ const ProjectManagement = () => {
             filterSearch: true,
             //filteredValue: filteredInfo.listProjectByCreator.title || null,
             //filters: data,
-            //onFilter: (value, record) => record.listProjectByCreator.title.startsWith(value),
+            // onFilter: (value, record) => record.title.startsWith(value),
+            render: (text, record, index) => {
+                return <Link to={`/board/${record.id}`}> {text}</Link>
+            },
             sorter: (item2, item1) => {
                 let projectName1 = item1.listProjectByCreator.title?.trim().toLowerCase();
                 let projectName2 = item2.listProjectByCreator.title?.trim().toLowerCase();
