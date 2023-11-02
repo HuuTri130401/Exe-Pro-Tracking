@@ -26,7 +26,7 @@ const Card = ({ task, provider }) => {
                     dispatch(openModal());
                 });
             }}>
-            <p style={{ textOverflow: 'ellipsis' }}>{taskName.length > 15 ? taskName.slice(0, 15) + '...' : taskName}</p>
+            <p style={{ textOverflow: 'ellipsis' }}>{taskName.title.length > 15 ? taskName.title.slice(0, 15) + '...' : taskName.title}</p>
             <div className="cards__user">
                 <Avatar.Group maxCount={2} maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>
                     {renderAvatar()}

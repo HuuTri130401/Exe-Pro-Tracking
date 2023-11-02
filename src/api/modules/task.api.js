@@ -1,8 +1,8 @@
 import { privateClient } from "../clients/private.client";
 
 const taskApi = {
-    getTaskDetail: (taskId) => {
-        return privateClient.get(`Project/getTaskDetail?taskId=${taskId}`);
+    getTaskDetail: (projectId) => {
+        return privateClient.get(`Todos/GetAllOData?ProjectId==${projectId}`);
     },
     updateTask: (taskUpdate) => {
         return privateClient.post(`Project/updateTask`, taskUpdate);

@@ -5,7 +5,6 @@ import ListTask from '../list-task/ListTask'
 import { updateStatusTaskThunk } from '../../redux/thunk/taskThunk'
 
 const DragDrop = ({ projectDetail }) => {
-
     const dispatch = useDispatch();
 
     const handleDrag = (result) => {
@@ -20,14 +19,14 @@ const DragDrop = ({ projectDetail }) => {
         
         dispatch(updateStatusTaskThunk({
             taskId,
-            statusId: destination.droppableId,
+            id: destination.droppableId, 
             projectId
         }))
     }
 
     const renderTaskList = () => {
-        return projectDetail?.lstTask?.map((taskList, index) => {
-            return <Droppable key={index} droppableId={taskList.statusId}>
+        return projectDetail?.projectById?.todos?.map((taskList, index) => {
+            return <Droppable key={index} droppableId={taskList.id}>
                 {(provider,snapshot) => {
                     return <ListTask key={index} taskList={taskList} provider={provider} />
                 }}

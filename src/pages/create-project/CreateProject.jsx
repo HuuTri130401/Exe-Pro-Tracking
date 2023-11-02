@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 const CreateProject = () => {
 
     const { category } = useSelector(state => state.optionSlice);
+    const { customer } = useSelector(state => state.userSlice);
     const editorRef = useRef(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ const CreateProject = () => {
         }),
         initialValues: {
             projectName: '',
-            categoryId: category[0]?.id
+            createdBy: customer[0]?.id
         },
         onSubmit: values => {
             dispatch(createProjectThunk({ ...values, description: editorRef.current.currentContent })).then(() => {
@@ -34,17 +35,22 @@ const CreateProject = () => {
     return (
         <form className="container w-75" onSubmit={handleSubmit}>
             <div className="mb-3">
-                <p>Project Name</p>
-                <InputForm name='projectName' onChange={handleChange} value={values.projectName} />
-                <span className='text-danger'>{errors.projectName}</span>
+                <p>Project Title</p>
+                <InputForm name='title' onChange={handleChange} value={values.title} />
+                <span className='text-danger'>{errors.title}</span>
+            </div>
+            <div className="mb-3">
+                <p>Sub Title</p>
+                <InputForm name='subTitle' onChange={handleChange} value={values.subTitle} />
+                <span className='text-danger'>{errors.subTitle}</span>
             </div>
             <div className="mb-3">
                 <p>Description</p>
                 <EditorMCE editorRef={editorRef} />
             </div>
             <div className="mb-3">
-                <p>Category</p>
-                <Select className='w-100' name='categoryId' data={category} keys='projectCategoryName' value={values.id * 1} handleChange={handleChange} />
+                <p>Creator Name</p>
+                <Select className='w-100' name='createdBy' data={customer} keys='createdBy' value={values.id * 1} handleChange={handleChange} />
             </div>
             <div className="mb-3">
                 <Button type='primary' onClick={() => { handleSubmit() }}>Create Project</Button>

@@ -84,7 +84,7 @@ const ProjectManagement = () => {
             key: 'createdBy',
             dataIndex: 'createdBy',
             render: (text, record, index) => {
-                return <Tag color="green">{record.createdBy}</Tag>
+                return <Tag color="green">{record.userCreatedName}</Tag>
             },
         },
         ///////
