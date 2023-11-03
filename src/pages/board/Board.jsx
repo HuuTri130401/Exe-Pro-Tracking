@@ -11,7 +11,6 @@ import TaskModal from "../../components/modal/TaskModal";
 const Board = (props) => {
   const param = useParams();
   const { projectDetail } = useSelector((state) => state.projectSlice);
-  // const { projectDetail } = useSelector(state => state.taskSlice);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProjectDetailThunk(param.id));

@@ -9,12 +9,12 @@ import { openModal } from '../../redux/slice/drawerSlice';
 
 const Card = ({ task, provider }) => {
     const dispatch = useDispatch();
-    const { assigness, priorityTask, taskName, taskId } = task;
-    const renderAvatar = () => {
-        return assigness?.map((member, index) => {
-            return <Avatar src={member.avatar} key={index} />
-        })
-    }
+    const { assigness, priorityTask, title, id } = task; //Id is status id (name board)
+    // const renderAvatar = () => {
+    //     return assigness?.map((member, index) => {
+    //         return <Avatar src={member.avatar} key={index} />
+    //     })
+    // }
 
     return (
         <div className="cards"
@@ -22,20 +22,20 @@ const Card = ({ task, provider }) => {
             {...provider.draggableProps}
             {...provider.dragHandleProps}
             onClick={() => {
-                dispatch(getTaskDetailThunk(taskId)).then(() => {
+                dispatch(getTaskDetailThunk(id)).then(() => {
                     dispatch(openModal());
                 });
             }}>
-            <p style={{ textOverflow: 'ellipsis' }}>{taskName.title.length > 15 ? taskName.title.slice(0, 15) + '...' : taskName.title}</p>
+            <p style={{ textOverflow: 'ellipsis' }}>{title.length > 15 ? title.slice(0, 15) + '...' : title}</p>
             <div className="cards__user">
                 <Avatar.Group maxCount={2} maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>
-                    {renderAvatar()}
+                    {/* {renderAvatar()} */}
                 </Avatar.Group>
                 <div className='cards__user-icons'>
                     <BsFillBookmarkCheckFill className='icon' size={18} color='green' />
                     <AiFillCheckSquare className='icon' size={18} color='darkblue' />
                 </div>
-                <span style={{ color: `${colorPriority[priorityTask.priorityId - 1].color}` }} className='priority ms-2'>{priorityTask.priority}</span>
+                {/* <span style={{ color: `${colorPriority[priorityTask.priorityId - 1].color}` }} className='priority ms-2'>{priorityTask.priority}</span> */}
             </div>
         </div>
     )
