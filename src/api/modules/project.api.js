@@ -6,7 +6,7 @@ const projectApi = {
         return privateClient.get(`/Projects/GetAllOData?createdBy=${createdBy}`);
     },
     getProjectDetail:(projectId)=>{
-        return privateClient.get(`Projects/GetProjectByIdWithTodoAndParticipant?id=${projectId}`);
+        return privateClient.get(`/Projects/GetProjectByIdWithTodoAndParticipant?id=${projectId}`);
     },
     assignUserProject:(userProject)=>{
         return privateClient.post('Project/assignUserProject',userProject);
@@ -21,7 +21,7 @@ const projectApi = {
         return privateClient.put(`Project/updateProject?projectId=${project.id}`,project);
     },
     createProject:(newProject)=>{
-        return privateClient.post('Project/createProjectAuthorize',newProject);
+        return privateClient.post('/Projects/Post',newProject);
     }
 }
 

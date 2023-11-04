@@ -9,22 +9,22 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { createProjectThunk } from '../../redux/thunk/projectThunk';
 import { useNavigate } from 'react-router-dom';
+import { userLocalStorage } from '../../utils/config';
 
 const CreateProject = () => {
-
-    const { category } = useSelector(state => state.optionSlice);
-    const { customer } = useSelector(state => state.userSlice);
+    // const { category } = useSelector(state => state.optionSlice);
+    const customerInfor = userLocalStorage.get();
     const editorRef = useRef(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { values, errors, handleChange, handleSubmit } = useFormik({
         enableReinitialize: true,
         validationSchema: Yup.object().shape({
-            projectName: Yup.string().required('Tên project không được trống'),
+            title: Yup.string().required('Tên project không được trống'),
         }),
         initialValues: {
-            projectName: '',
-            createdBy: customer[0]?.id
+            title: '',
+            createdBy: customerInfor.customer.id
         },
         onSubmit: values => {
             dispatch(createProjectThunk({ ...values, description: editorRef.current.currentContent })).then(() => {
@@ -46,11 +46,14 @@ const CreateProject = () => {
             </div>
             <div className="mb-3">
                 <p>Description</p>
-                <EditorMCE editorRef={editorRef} />
+                <EditorMCE editorRef={editorRef}/>
+                <div dangerouslySetInnerHTML={{ __html: editorRef }}></div>
             </div>
             <div className="mb-3">
-                <p>Creator Name</p>
-                <Select className='w-100' name='createdBy' data={customer} keys='createdBy' value={values.id * 1} handleChange={handleChange} />
+                <span>Creator Name: </span>
+                <span className='w-100' name='createdBy' style={{ fontWeight: 'bold', fontSize: '15px' }}>
+                 {customerInfor.customer.username}
+                </span>
             </div>
             <div className="mb-3">
                 <Button type='primary' onClick={() => { handleSubmit() }}>Create Project</Button>

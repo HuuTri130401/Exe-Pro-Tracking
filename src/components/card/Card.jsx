@@ -9,7 +9,7 @@ import { openModal } from '../../redux/slice/drawerSlice';
 
 const Card = ({ task, provider }) => {
     const dispatch = useDispatch();
-    const { assigness, priorityTask, title, id } = task; //Id is status id (name board)
+    const { assigness, priorityTask, title, id } = task; //Id is statusId 
     // const renderAvatar = () => {
     //     return assigness?.map((member, index) => {
     //         return <Avatar src={member.avatar} key={index} />

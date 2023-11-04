@@ -41,16 +41,6 @@ const DragDrop = ({ projectDetail }) => {
         });
       };
       
-    // const renderTaskList = () => {
-    //     const project = projectDetail.projectById;
-    //     return project?.todos?.map((taskList, index) => {
-    //         return <Droppable key={index} droppableId={taskList.labelId}>  
-    //             {(provider,snapshot) => {
-    //                 return <ListTask key={index} taskList={taskList} provider={provider} project={project}/>
-    //             }}
-    //         </Droppable>
-    //     })
-    // }
     return (
         <div className="list__board">
             <DragDropContext onDragEnd={handleDrag}>

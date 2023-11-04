@@ -23,23 +23,6 @@ const ListTask = ({ taskList, provider, project, filteredTasks}) => {
     });
   };
   
-  
-    // const renderTask = () => {
-    //     return project?.todos?.map((task, index) => {
-    //         return <Draggable
-    //             key={task.id.toString()}
-    //             index={index}
-    //             draggableId={JSON.stringify({
-    //                 projectId: task.projectId,
-    //                 id: task.id,
-    //             })}>
-    //             {(provider,snapshot) => {
-    //                 return <Card task={task} provider={provider} />
-    //             }}
-    //         </Draggable>
-    //     })
-    // }
-
     return (
         <div className="list__board-item">
             <div className="list__board-item-header">
