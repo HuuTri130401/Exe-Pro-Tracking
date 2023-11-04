@@ -15,6 +15,7 @@ import Register from "./pages/user-page/Register";
 import PackageManagement from "./pages/package-management/PackageManagement";
 import { userLocalStorage } from "./utils/config";
 import AdminUsers from "./pages/admin-page/AdminUsers";
+import AIChatBot from "./components/ai-chat-bot/AIChatBot";
 
 function App() {
   const user = userLocalStorage.get();
@@ -44,10 +45,12 @@ function App() {
             <Route path='/board/:id' element={<Dashboard Component={Board} title={'Board'} />} />
             <Route path="/create" element={<Dashboard Component={CreateProject} title={'Create Project'} />} />
             <Route path="/package" element={<Dashboard Component={PackageManagement} title={'Package Management'} />} />
+            <Route path="/chat" element={<AIChatBot />} />
           </>
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
+      <AIChatBot />
     </>
   );
 }
