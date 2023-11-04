@@ -23,7 +23,8 @@ export const updateStatusTaskThunk = createAsyncThunk(
     'updateStatusTask',
     async ({ taskId, statusId, projectId }, { dispatch, rejectWithValue }) => {
         try {
-            const { statusCode, content } = await taskApi.updateStatus({ taskId, statusId });
+            const { statusCode, content } = await taskApi.updateStatus({ taskId, statusId }); 
+            // Gọi API cập nhật trạng thái với taskId và statusId
             if (statusCode === 200) {
                 openNotification('success', 'Thông báo', 'Thao tác thành công');
                 dispatch(getProjectDetailThunk(projectId))

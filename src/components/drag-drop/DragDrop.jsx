@@ -8,22 +8,21 @@ const DragDrop = ({ projectDetail }) => {
     const dispatch = useDispatch();
 
     const handleDrag = (result) => {
-        let { projectId, id} = JSON.parse(result.draggableId);
-
-        let { source, destination } = result;
-        if (!destination) {
-            return;
-        } else if (source.index === destination.index && source.droppableId === destination.droppableId) {
-            return;
-        }
-        
-        dispatch(updateStatusTaskThunk({
-            id,
-            labelId: destination.droppableId, 
-            projectId
-        }))
-    }
-
+      let { projectId, id } = JSON.parse(result.draggableId);
+      let { source, destination } = result;
+      if (!destination) {
+          return;
+      } else if (source.index === destination.index && source.droppableId === destination.droppableId) {
+          return;
+      }
+      
+      dispatch(updateStatusTaskThunk({
+          taskId: id,
+          statusId: destination.droppableId,
+          projectId // Đảm bảo projectId đã được truyền vào hàm
+      }))
+  }
+  
     const renderTaskList = () => {
         const project = projectDetail.projectById;
         // Tạo danh sách các trạng thái duy nhất

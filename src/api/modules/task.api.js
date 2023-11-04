@@ -8,7 +8,7 @@ const taskApi = {
         return privateClient.post(`Project/updateTask`, taskUpdate);
     },
     updateStatus: (taskUpdate) => {
-        return privateClient.put(`Project/updateStatus`, taskUpdate);
+        return privateClient.put(`Todos/UpdateTodoStatusByTodoId?todoId=${taskUpdate.taskId}&status=${taskUpdate.statusId}`);
     },
     assignUserTask: (user) => {
         return privateClient.post(`Project/assignUserTask`, user);
