@@ -22,9 +22,12 @@ const Board = (props) => {
         <h6 className="mb-3">
           Project name: {projectDetail?.projectById?.title}
         </h6>
-        <section className="mb-3">
+        {/* <section className="mb-3">
           <span>Description: {projectDetail?.projectById?.description}</span>
-        </section>
+        </section> */}
+        <section className='mb-3'>
+             <span>{parser(`${projectDetail?.projectById?.description}`)}</span>
+         </section>
       </div>
       <Filter projectDetail={projectDetail} />
       <DragDrop projectDetail={projectDetail} />

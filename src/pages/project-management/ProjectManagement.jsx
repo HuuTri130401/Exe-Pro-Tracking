@@ -10,6 +10,11 @@ import { assignUserProjectThunk, deleteProjectThunk, getAllProjectThunk, removeU
 import { getUserThunk } from '../../redux/thunk/userThunk';
 import { userLocalStorage } from "../../utils/config";
 const ProjectManagement = () => {
+    function stripHtmlTags(html) {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || '';
+      }
+
     const { projects } = useSelector(state => state.projectSlice);
     const { userSearch } = useSelector(state => state.userSlice);
     const dispatch = useDispatch();
@@ -66,19 +71,33 @@ const ProjectManagement = () => {
                 return 1;
             },
         },
+        // {
+        //     title: 'Description',
+        //     key: 'description',
+        //     dataIndex: 'description',
+        //     sorter: (item2, item1) => {
+        //         let categoryName1 = item1.listProjectByCreator.description?.trim().toLowerCase();
+        //         let categoryName2 = item2.listProjectByCreator.description?.trim().toLowerCase();
+        //         if (categoryName2 < categoryName1) {
+        //             return -1;
+        //         }
+        //         return 1;
+        //     },
+        // },
         {
             title: 'Description',
             key: 'description',
             dataIndex: 'description',
+            render: (text) => <span>{stripHtmlTags(text)}</span>,
             sorter: (item2, item1) => {
-                let categoryName1 = item1.listProjectByCreator.description?.trim().toLowerCase();
-                let categoryName2 = item2.listProjectByCreator.description?.trim().toLowerCase();
-                if (categoryName2 < categoryName1) {
-                    return -1;
-                }
-                return 1;
+              let categoryName1 = stripHtmlTags(item1.listProjectByCreator.description)?.trim().toLowerCase();
+              let categoryName2 = stripHtmlTags(item2.listProjectByCreator.description)?.trim().toLowerCase();
+              if (categoryName2 < categoryName1) {
+                return -1;
+              }
+              return 1;
             },
-        },
+          },
         {
             title: 'CreatedBy',
             key: 'createdBy',
