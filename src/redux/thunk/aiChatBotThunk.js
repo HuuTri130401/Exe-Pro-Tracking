@@ -3,26 +3,24 @@ import aiChatBotApi from "../../api/modules/ai-chat-bot.api";
 
 export const getMessagesHistoryThunk = createAsyncThunk(
     'getMessagesHistory',
-    async ({ rejectWithValue, dispatch }) => {
+    async ({ skip, limit }, { rejectWithValue }) => {
         try {
-            const response = await aiChatBotApi.getMessages();
-            console.log(response);
+            const response = await aiChatBotApi.getMessagesHistory(skip, limit);
             return response;
         } catch ({ message }) {
-            return message;
+            return rejectWithValue(message);
         }
     }
 )
 
 export const clearMessagesHistoryThunk = createAsyncThunk(
     'clearMessagesHistory',
-    async ({ rejectWithValue, dispatch }) => {
-        console.log('clearMessagesHistoryThunk');
+    async (_, { rejectWithValue }) => {
         try {
-            const response = await aiChatBotApi.clearMessages();
+            const response = await aiChatBotApi.clearMessagesHistory();
             return response;
         } catch ({ message }) {
-            return message;
+            return rejectWithValue(message);
         }
     }
 )
@@ -34,7 +32,7 @@ export const sendMessageThunk = createAsyncThunk(
             const response = await aiChatBotApi.sendMessage(message);
             return response;
         } catch ({ message }) {
-            return message;
+            return rejectWithValue(message);
         }
     }
 )

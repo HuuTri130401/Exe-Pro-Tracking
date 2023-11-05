@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, ConversationHeader, Avatar } from '@chatscope/chat-ui-kit-react';
 import { useDispatch, useSelector } from "react-redux";
@@ -12,25 +12,22 @@ const AIChatBot = () => {
     const { messages } = useSelector((state) => state.aiChatBotSlice);
     const dispatch = useDispatch();
 
-    const handleClickChatbotButton = async () => {
+    const handleClickChatbotButton = () => {
         if (!showChatbot && messages.length === 0) {
             console.log("showChatbot", messages.length);
-            dispatch(getMessagesHistoryThunk());
+            dispatch(getMessagesHistoryThunk({ skip: 0, limit: 10 }, {}));
         }
         toggleChatbot(!showChatbot);
     };
 
-    const handleClickCleanButton = async () => {
-        if (messages.length === 0) {
-            return;
-        }
-        dispatch(clearMessagesHistory());
-        dispatch(clearMessagesHistoryThunk());
-    };
-
     const handleSend = async (message) => {
-        dispatch(sendMessage(message));
-        dispatch(sendMessageThunk(message));
+        if (message === "!clear") {
+            dispatch(clearMessagesHistory());
+            dispatch(clearMessagesHistoryThunk());
+        } else {
+            dispatch(sendMessage(message));
+            dispatch(sendMessageThunk(message));
+        }
     };
 
     return (
@@ -58,7 +55,7 @@ const AIChatBot = () => {
                                 sendDisabled={loading}
                                 sendOnReturnDisabled={loading}
                                 autoFocus={true}
-                                onAttachClick={handleClickCleanButton}
+                                attachButton={false}
                             />
                         </ChatContainer>
                     </MainContainer>

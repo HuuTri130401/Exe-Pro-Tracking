@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getMessagesHistoryThunk, clearMessagesHistoryThunk, sendMessageThunk } from "../thunk/aiChatBotThunk";
+import { reverse } from "lodash";
 
 const initialState = {
     messages: [],
@@ -19,6 +20,7 @@ const aiChatBotSlice = createSlice({
             });
         },
         clearMessagesHistory: (state, { payload }) => {
+            console.log('clearMessagesHistory');
             state.messages = [];
         }
     },
@@ -28,7 +30,15 @@ const aiChatBotSlice = createSlice({
         })
         builder.addCase(getMessagesHistoryThunk.fulfilled, (state, { payload }) => {
             state.loading = false;
-            state.messages = payload;
+            const loadedMessages = payload.map(message => {
+                return {
+                    message: message.content,
+                    sender: message.message_type,
+                    direction: message.message_type == "AI" ? "incoming" : "outgoing"
+                }
+            })
+            reverse(loadedMessages);
+            state.messages = loadedMessages;
         })
         builder.addCase(getMessagesHistoryThunk.rejected, (state, { payload }) => {
             state.loading = false;
