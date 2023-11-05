@@ -14,7 +14,6 @@ const AIChatBot = () => {
 
     const handleClickChatbotButton = () => {
         if (!showChatbot && messages.length === 0) {
-            console.log("showChatbot", messages.length);
             dispatch(getMessagesHistoryThunk({ skip: 0, limit: 10 }, {}));
         }
         toggleChatbot(!showChatbot);

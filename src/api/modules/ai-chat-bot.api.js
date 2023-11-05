@@ -8,7 +8,6 @@ const aiChatBotApi = {
     return privateClientChatService.delete(`/messages/clear`);
   },
   sendMessage: (message) => {
-    console.log(encodeURI(`/messages/ask?message=${message}`));
     return privateClientChatService.get(`/messages/ask?message=${message}`);
   },
 };

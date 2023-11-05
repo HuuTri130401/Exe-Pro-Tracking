@@ -20,7 +20,6 @@ const aiChatBotSlice = createSlice({
             });
         },
         clearMessagesHistory: (state, { payload }) => {
-            console.log('clearMessagesHistory');
             state.messages = [];
         }
     },
