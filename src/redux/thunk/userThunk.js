@@ -39,13 +39,14 @@ export const registerThunk = createAsyncThunk(
 
 export const getAllUserThunk = createAsyncThunk(
     'getAllUser',
-    async () => {
+    async (_, { dispatch, rejectWithValue }) => {
         try {
-            const { statusCode, content } = await userApi.getAllUser();
-            if (statusCode === 200) return content;
+            const { statusCode, listAllChildTask } = await userApi.getAllUser();
+            if (statusCode === 200) {
+                return listAllChildTask;
+            }
         } catch ({ message }) {
             openNotification('error', 'Thất bại', message);
         }
     }
 )
-

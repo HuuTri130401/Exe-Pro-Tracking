@@ -15,7 +15,7 @@ const AdminUsers = () => {
     const [filteredInfo, setFilteredInfo] = useState({});
     const [sortedInfo, setSortedInfo] = useState({});
     const creatorId = userLocalStorage.get();
-   
+
     useEffect(() => {
         dispatch(getAllUserThunk());
     }, [dispatch]);
@@ -101,8 +101,8 @@ const AdminUsers = () => {
                     <Button onClick={clearAll}>Clear filters and sorters</Button>
                 </Space>
             </div>
-            <Table pagination={{ showSizeChanger: false, pageSize: 6 }} columns={column} size='large' rowKey={"id"} 
-            dataSource={Array.isArray(users.listAllChildTask) ? users.listAllChildTask : []}
+            <Table pagination={{ showSizeChanger: false, pageSize: 6 }} columns={column} size='large' rowKey={"id"}
+            dataSource={Array.isArray(users) ? users : []}
             onChange={handleChange} />
         </div>
     )

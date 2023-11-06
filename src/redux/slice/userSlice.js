@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { userLocalStorage } from '../../utils/config';
 import { getAllUserThunk, loginThunk } from '../thunk/userThunk';
-import { jwtDecode} from 'jwt-decode'; 
+import { jwtDecode} from 'jwt-decode';
 
 const initialState = {
     user: userLocalStorage.get(),
@@ -35,16 +35,13 @@ const extractUserRole = (token) => {
             const token = localStorage.getItem('TOKEN');
             state.role = extractUserRole(token); // Lưu vai trò vào trạng thái
         });
+
         builder.addCase(getAllUserThunk.pending, (state) => {
             state.loadingUser = true;
         });
         builder.addCase(getAllUserThunk.fulfilled, (state, { payload }) => {
-            if (payload) {
-                state.users = payload;
-            }
-            console.log(typeof payload); 
-            console.log(typeof state.users); 
-            console.log('payload from API: ' + JSON.stringify(state.users));
+            console.log(payload);
+            state.users = payload;
             state.loadingUser = false;
         });
     }
