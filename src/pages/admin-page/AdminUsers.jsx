@@ -39,14 +39,9 @@ const AdminUsers = () => {
             dataIndex: 'id'
         },
         {
-            title: 'FirstName',
-            key: 'firstName',
-            dataIndex: 'firstName'
-        },
-        {
-            title: 'LastName',
-            key: 'lastName',
-            dataIndex: 'lastName'
+            title: 'Username',
+            key: 'username',
+            dataIndex: 'username'
         },
         {
             title: 'Email',
@@ -58,38 +53,38 @@ const AdminUsers = () => {
             key: 'phone',
             dataIndex: 'phone'
         },
-        {
-            title: 'Action',
-            dataIndex: '',
-            key: 'id',
-            render: (text, record, index) => <div style={{ display: 'flex' }}>
-                <div>
-                    <span className="bg-primary text-white me-2" style={{ padding: 6, borderRadius: '3px', paddingBottom: 8, cursor: 'pointer' }}
-                        onClick={() => {
-                            dispatch(openDrawer(false));
-                            // dispatch(editUser(record));
-                        }}>
-                        <MdEdit style={{ fontSize: 18 }} />
-                    </span>
-                </div>
-                <div>
-                    <span>
-                        {/* <Popconfirm
-                            title="Are you sure to delete this project?"
-                            onConfirm={() => {
-                                dispatch(deleteProjectThunk(record.id))
-                            }}
-                            okText="Yes"
-                            cancelText="No"
-                        >
-                            <span className="bg-danger text-white ml-2" style={{ padding: 6, borderRadius: '3px', paddingBottom: 8, cursor: 'pointer' }}>
-                                <MdOutlineDelete style={{ fontSize: 18 }} />
-                            </span>
-                        </Popconfirm> */}
-                    </span>
-                </div>
-            </div>
-        },
+        // {
+        //     title: 'Action',
+        //     dataIndex: '',
+        //     key: 'id',
+        //     render: (text, record, index) => <div style={{ display: 'flex' }}>
+        //         <div>
+        //             <span className="bg-primary text-white me-2" style={{ padding: 6, borderRadius: '3px', paddingBottom: 8, cursor: 'pointer' }}
+        //                 onClick={() => {
+        //                     dispatch(openDrawer(false));
+        //                     // dispatch(editUser(record));
+        //                 }}>
+        //                 <MdEdit style={{ fontSize: 18 }} />
+        //             </span>
+        //         </div>
+        //         <div>
+        //             <span>
+        //                 {/* <Popconfirm
+        //                     title="Are you sure to delete this project?"
+        //                     onConfirm={() => {
+        //                         dispatch(deleteProjectThunk(record.id))
+        //                     }}
+        //                     okText="Yes"
+        //                     cancelText="No"
+        //                 >
+        //                     <span className="bg-danger text-white ml-2" style={{ padding: 6, borderRadius: '3px', paddingBottom: 8, cursor: 'pointer' }}>
+        //                         <MdOutlineDelete style={{ fontSize: 18 }} />
+        //                     </span>
+        //                 </Popconfirm> */}
+        //             </span>
+        //         </div>
+        //     </div>
+        // },
     ]
 
     return (
@@ -101,7 +96,7 @@ const AdminUsers = () => {
                     <Button onClick={clearAll}>Clear filters and sorters</Button>
                 </Space>
             </div>
-            <Table pagination={{ showSizeChanger: false, pageSize: 6 }} columns={column} size='large' rowKey={"id"}
+            <Table pagination={{ showSizeChanger: false, pageSize: 10 }} columns={column} size='large' rowKey={"id"}
             dataSource={Array.isArray(users) ? users : []}
             onChange={handleChange} />
         </div>

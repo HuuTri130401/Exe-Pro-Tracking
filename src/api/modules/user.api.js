@@ -7,7 +7,7 @@ const userApi = {
         return publicClient.post('/Login',user);
     },
     register:(newUser)=>{
-        return publicClient.post('/Register',newUser); 
+        return publicClient.post('/Register',newUser);
     },
     getAllUser:()=>{
         return privateClient.get('/Customer/GetAll');
