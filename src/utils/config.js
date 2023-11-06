@@ -1,4 +1,3 @@
-//export const BASE_URL = "https://jiranew.cybersoft.edu.vn/api/";
 export const BASE_URL = "https://localhost:7266/api";
 
 export const TOKEN_CYBERSOFT =

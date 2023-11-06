@@ -9,12 +9,9 @@ const userApi = {
     register:(newUser)=>{
         return publicClient.post('/Register',newUser); 
     },
-    // login:(user)=>{
-    //     return publicClient.post('/Users/signin',user);
-    // },
-    // getUser:(keyword)=>{
-    //     return privateClient.get(`Users/getUser?keyword=${keyword}`);
-    // },
+    getAllUser:()=>{
+        return privateClient.get('/Customer/GetAll');
+    },
 }
 
 export default userApi;

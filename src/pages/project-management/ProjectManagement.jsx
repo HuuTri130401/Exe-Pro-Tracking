@@ -21,8 +21,6 @@ const ProjectManagement = () => {
     const [filteredInfo, setFilteredInfo] = useState({});
     const [sortedInfo, setSortedInfo] = useState({});
     const creatorId = userLocalStorage.get();
-    console.log(typeof projects + ' Check type');
-    console.log(projects + ' Check type');
     useEffect(() => {
         dispatch(getAllProjectThunk(creatorId.customer.id));
     }, [dispatch]);
@@ -63,8 +61,8 @@ const ProjectManagement = () => {
                 return <Link to={`/board/${record.id}`}> {text}</Link>
             },
             sorter: (item2, item1) => {
-                let projectName1 = item1.listProjectByCreator.title?.trim().toLowerCase();
-                let projectName2 = item2.listProjectByCreator.title?.trim().toLowerCase();
+                let projectName1 = item1.title?.trim().toLowerCase();
+                let projectName2 = item2.title?.trim().toLowerCase();
                 if (projectName2 < projectName1) {
                     return -1;
                 }
@@ -90,8 +88,8 @@ const ProjectManagement = () => {
             dataIndex: 'description',
             render: (text) => <span>{stripHtmlTags(text)}</span>,
             sorter: (item2, item1) => {
-              let categoryName1 = stripHtmlTags(item1.listProjectByCreator.description)?.trim().toLowerCase();
-              let categoryName2 = stripHtmlTags(item2.listProjectByCreator.description)?.trim().toLowerCase();
+              let categoryName1 = stripHtmlTags(item1.description)?.trim().toLowerCase();
+              let categoryName2 = stripHtmlTags(item2.description)?.trim().toLowerCase();
               if (categoryName2 < categoryName1) {
                 return -1;
               }

@@ -37,17 +37,15 @@ export const registerThunk = createAsyncThunk(
     }
 )
 
-export const getUserThunk = createAsyncThunk(
-    'getUserThunk',
-    async (keyword, { dispatch, rejectWithValue }) => {
+export const getAllUserThunk = createAsyncThunk(
+    'getAllUser',
+    async () => {
         try {
-            const { statusCode, content } = await userApi.getUser(keyword);
-            if (statusCode === 200) {
-                return content;
-            }
-        } catch ({ statusCode, message }) {
-            openNotification('error', 'Thông báo', 'Không phải project của bạn nên không thể thêm thành viên')
-            return rejectWithValue(message);
+            const { statusCode, content } = await userApi.getAllUser();
+            if (statusCode === 200) return content;
+        } catch ({ message }) {
+            openNotification('error', 'Thất bại', message);
         }
     }
 )
+
