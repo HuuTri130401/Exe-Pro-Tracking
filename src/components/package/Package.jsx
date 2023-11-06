@@ -40,7 +40,7 @@ const Package = ({ features, price, accountType }) => {
             "paymentId": paymentTypes[paymentMethod].id,
             "content": userInfo.email + "_" + userInfo.phone,
             "amount": parseInt(price.replace(".", "")),
-            "isBanking": paymentMethod === "TPBank" ? true : false
+            "isBanking": false
         }))
             .then((response) => {
                 if (response.type == postTransactionThunk.rejected) {
