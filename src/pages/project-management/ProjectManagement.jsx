@@ -197,9 +197,9 @@ const ProjectManagement = () => {
                     <Button onClick={clearAll}>Clear filters and sorters</Button>
                 </Space>
             </div>
-            <Table pagination={{ showSizeChanger: false, pageSize: 6 }} columns={column} size='large' rowKey={"id"} 
-            //dataSource={Array.isArray(projects) ? projects : [projects]} 
-            dataSource={Array.isArray(projects.listProjectByCreator) ? projects.listProjectByCreator : []}
+            <Table pagination={{ showSizeChanger: false, pageSize: 6 }} columns={column} size='large' rowKey={"id"}
+            //dataSource={Array.isArray(projects) ? projects : [projects]}
+            dataSource={(projects !== undefined && Array.isArray(projects.listProjectByCreator)) ? projects.listProjectByCreator : []}
             onChange={handleChange} />
         </div>
     )

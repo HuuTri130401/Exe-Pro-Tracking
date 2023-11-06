@@ -10,15 +10,34 @@ function Menu() {
     const { projectDetail } = useSelector(state => state.projectSlice);
     const navigate = useNavigate();
     const customerInfor = userLocalStorage.get();
+
+    const user = userLocalStorage.get();
+    const isAdmin = user?.customer?.role === 1;
+
     return (
         <div className='menu'>
             <div className="menu__user">
                 <img src={customerInfor.customer.avatar || './img/profile.png'} alt="avatar" />
                 <div className="menu__user-info">
-                    <div className='framework'>{customerInfor.customer.username}</div>
+                    <div className='framework'>{isAdmin ? "ADMIN" : customerInfor.customer.username}</div>
                     <div className='project'>ProTracking</div>
                 </div>
             </div>
+
+            {isAdmin &&
+                <>
+                    <NavLink to='/adminManagePackages' className='menu__item'>
+                        <MdTask className='menu__item-icon' />
+                        <span>Transactions Management</span>
+                    </NavLink>
+                    <NavLink to='/adminManageUsers' className='menu__item'>
+                        <MdCreate className='menu__item-icon' />
+                        <span>Users Management</span>
+                    </NavLink>
+                    <hr></hr>
+                </>
+            }
+
             <Button type='link' onClick={() => {
                 if (projectDetail?.id) navigate(`/board/${projectDetail?.id}`)
                 else navigate('/projects')
@@ -65,7 +84,7 @@ function Menu() {
                 <span>Components</span>
                 <span className='implemente'>Not implemented</span>
             </div>
-        </div>
+        </div >
     )
 }
 

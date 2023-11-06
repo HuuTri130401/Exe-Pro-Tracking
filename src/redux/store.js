@@ -6,6 +6,7 @@ import optionSlice from "./slice/optionSlice";
 import drawerSlice from "./slice/drawerSlice";
 import commentSlice from "./slice/commentSlice";
 import paymentSlice from "./slice/paymentSlice";
+import transactionSlice from "./slice/transactionSlice";
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
         drawerSlice,
         commentSlice,
         paymentSlice,
+        transactionSlice
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

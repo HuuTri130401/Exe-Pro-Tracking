@@ -90,7 +90,7 @@ const AdminUsers = () => {
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-                <h6 className='mb-3'>Project Management</h6>
+                <h6 className='mb-3'>Users Management</h6>
                 <Space style={{ marginBottom: 16 }}>
                     <Button onClick={clearFilters}>Clear filters</Button>
                     <Button onClick={clearAll}>Clear filters and sorters</Button>
