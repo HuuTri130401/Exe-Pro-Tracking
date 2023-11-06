@@ -5,7 +5,7 @@ const UserLayout = ({ Component }) => {
   return (
     <Row className='user'>
       <Col lg={12} className='user__left'>
-        <img src="./img/logo_protracking04.png" alt="Logo ProTracking" />
+        <img src="./img/logo_protracking.png" alt="Logo ProTracking" />
       </Col>
       <Col md={24} lg={12} className='user__right'>
         <Component/>

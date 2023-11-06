@@ -48,7 +48,7 @@ const Login = () => {
         <Form.Item
           wrapperCol={{ span: 24 }}>
           <Link to={'/register'}>
-            Are you have an account? <span>Sign Up</span>
+            Are you have an account? <span style={{color: '#cc0000'}}>Sign Up</span>
           </Link>
         </Form.Item>
       </Form>

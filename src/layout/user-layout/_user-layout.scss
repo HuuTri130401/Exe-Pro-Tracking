@@ -1,10 +1,7 @@
 .user {
     overflow: hidden;
     height: 100vh;
-    //background: linear-gradient(to right, #0099cc 56%, #33cccc 76%);
-    //background: linear-gradient(to right, #0099cc 48%, #33cccc 71%);
-    //background: linear-gradient(to right, #0099cc 25%, #33cccc 100%);
-    background: linear-gradient(to right, #0099cc 50%, #33cccc 80%);
+    background: #020b74;
     &__left{
         @include flex(center,center);
         padding: 2rem 0 2rem 2rem;
@@ -14,5 +11,7 @@
     }
     &__right{
         color: $white;
+        font-family: 'Candal', sans-serif;
+        font-weight: 500;
     }
 }
