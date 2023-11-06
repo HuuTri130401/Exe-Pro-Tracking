@@ -5,6 +5,7 @@ import taskSlice from "./slice/taskSlice";
 import optionSlice from "./slice/optionSlice";
 import drawerSlice from "./slice/drawerSlice";
 import commentSlice from "./slice/commentSlice";
+import paymentSlice from "./slice/paymentSlice";
 
 export const store = configureStore({
     reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
         taskSlice,
         optionSlice,
         drawerSlice,
-        commentSlice
+        commentSlice,
+        paymentSlice,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
