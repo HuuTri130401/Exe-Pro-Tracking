@@ -16,7 +16,7 @@ privateClient.interceptors.request.use(config => {
             TokenCybersoft: TOKEN_CYBERSOFT,
             "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem("TOKEN")}`,
-            "Access-Control-Allow-Origin": "*"
+            "Access-Control-Allow-Origin": "http://www.protracking.somee.com/api"
         }
     }
 },
