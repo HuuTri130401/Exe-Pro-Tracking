@@ -11,7 +11,7 @@ const Package = ({ features, price, accountType }) => {
     const userInfo = userLocalStorage.get().customer;
     const accountTypeMap = {
         "Free": 1,
-        "Basic": 2,
+        "Standard": 2,
         "Premium": 3,
         "Enterprise": 4
     };
