@@ -2,6 +2,8 @@
     margin-left: 294px;
     padding: 30px;
     height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    // font-family: 'Rubik', sans-serif;
     @include flex(center,center);
     flex-direction: column;
     &>div{

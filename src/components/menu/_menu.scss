@@ -40,6 +40,8 @@
         cursor: pointer;
         user-select: none;
         color: $black;
+        // font-family: 'Poppins', sans-serif;
+        font-family: 'Rubik', sans-serif;
         &.active {
             color: $blue-600;
             background: $white-200;
