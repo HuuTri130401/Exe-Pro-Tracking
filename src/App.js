@@ -9,13 +9,13 @@ import Board from "./pages/board/Board";
 import CreateProject from "./pages/create-project/CreateProject";
 import ErrorPage from "./pages/error-page/ErrorPage";
 import ProjectManagement from "./pages/project-management/ProjectManagement";
-import AdminPackages from "./pages/admin-page/AdminPackages";
+import AdminTransaction from "./pages/admin-page/AdminTransactions";
 import Login from "./pages/user-page/Login";
 import Register from "./pages/user-page/Register";
 import PackageManagement from "./pages/package-management/PackageManagement";
 import { userLocalStorage } from "./utils/config";
-import AdminDashBoard from "./layout/dashboard/AdminDashBoard";
 import AdminUsers from "./pages/admin-page/AdminUsers";
+
 function App() {
   const user = userLocalStorage.get();
   const isAdmin = user?.customer?.role === 1;
@@ -33,19 +33,18 @@ function App() {
 
         {/* Dashboard */}
         <Route element={<DashboardRoutes />}>
-          {isAdmin ? (
+          {isAdmin && (
+            <>
+              <Route index={isAdmin} path="/adminManageTransactions" element={<Dashboard Component={AdminTransaction} title={'Admin Manage Packages'} />} />
+              <Route path="/adminManageUsers" element={<Dashboard Component={AdminUsers} title={'Admin Manage Users'} />} />
+            </>
+          )}
           <>
-            <Route index path="/adminManagePackages" element={<AdminDashBoard Component={AdminPackages} title={'Admin Manage Packages'} />} />
-            <Route path="/adminManageUsers" element={<AdminDashBoard Component={AdminUsers} title={'Admin Manage Users'} />} />
-          </>
-          ) : ( 
-          <>
-            <Route index path="/projects" element={<Dashboard Component={ProjectManagement} title={'Project Management'} />} />
+            <Route index={isUser} path="/projects" element={<Dashboard Component={ProjectManagement} title={'Project Management'} />} />
             <Route path='/board/:id' element={<Dashboard Component={Board} title={'Board'} />} />
             <Route path="/create" element={<Dashboard Component={CreateProject} title={'Create Project'} />} />
-            <Route path="/package" element={<Dashboard Component={PackageManagement} title={'Package Management'}/>}/>
+            <Route path="/package" element={<Dashboard Component={PackageManagement} title={'Package Management'} />} />
           </>
-          )}
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>

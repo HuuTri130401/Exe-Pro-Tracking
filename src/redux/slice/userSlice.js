@@ -1,24 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { userLocalStorage } from '../../utils/config';
 import { getAllUserThunk, loginThunk } from '../thunk/userThunk';
-import { jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const initialState = {
     user: userLocalStorage.get(),
     // userSearch: [],
-    users:[],
+    users: [],
     loadingUser: false,
 }
 const extractUserRole = (token) => {
     try {
-      const tokenPayload = jwtDecode.decode(token);
-      return tokenPayload.role; // Trả về vai trò từ JWT
+        const tokenPayload = jwtDecode.decode(token);
+        return tokenPayload.role; // Trả về vai trò từ JWT
     } catch (error) {
-      return null;
+        return null;
     }
-  };
+};
 
-  const userSlice = createSlice({
+const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {

@@ -36,7 +36,6 @@ function Sidebar() {
         //   <FaPlus className="sidebar__item-icon" />
         //   <span className="title">CREATE TASK</span>
         // </div>
-
         visible && <div className="sidebar__item" onClick={() => dispatch(openDrawer(true))}>
         <FaPlus className='sidebar__item-icon' />
         <span className="title">CREATE TASK</span>

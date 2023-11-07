@@ -11,11 +11,11 @@ const Package = ({ features, price, accountType }) => {
     const userInfo = userLocalStorage.get().customer;
     const accountTypeMap = {
         "Free": 1,
-        "Basic": 2,
+        "Standard": 2,
         "Premium": 3,
         "Enterprise": 4
     };
-    
+
     const [openModal, setOpenModal] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState("");
 
@@ -23,7 +23,6 @@ const Package = ({ features, price, accountType }) => {
     const { loading } = useSelector((state) => state.paymentSlice);
 
     const handleOpenModal = () => {
-        console.log(userInfo);
         dispatch(getPaymentTypesThunk(accountType))
         setOpenModal(true);
     }

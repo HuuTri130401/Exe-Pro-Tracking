@@ -3,7 +3,6 @@ import { publicClient } from "../clients/public.client";
 
 const userApi = {
     login:(user)=>{
-        console.log(user + ' Information');
         return publicClient.post('/Login',user);
     },
     register:(newUser)=>{
