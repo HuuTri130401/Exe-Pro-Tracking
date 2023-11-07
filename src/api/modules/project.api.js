@@ -15,10 +15,10 @@ const projectApi = {
         return privateClient.post('Project/removeUserFromProject',userProject);
     },
     deleteProject:(projectId)=>{
-        return privateClient.delete(`Project/deleteProject?projectId=${projectId}`);
+        return privateClient.delete(`Projects/Delete=${projectId}`);
     },
     updateProject:(project)=>{
-        return privateClient.put(`/Projects/Update=${project.id}`,project);
+        return privateClient.put('/Projects/Update',project);
     },
     createProject:(newProject)=>{
         return privateClient.post('/Projects/Post',newProject);
