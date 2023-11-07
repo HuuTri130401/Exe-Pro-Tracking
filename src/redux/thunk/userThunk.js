@@ -26,7 +26,7 @@ export const registerThunk = createAsyncThunk(
     async (newUser, { dispatch, rejectWithValue }) => {
         try {
             const { statusCode, content, message } = await userApi.register(newUser);
-            if (statusCode === 200) {
+            if (statusCode === 201) {
                 openNotification('success', 'Đăng ký thành công', message)
             }
             return content;
