@@ -12,6 +12,7 @@ const transactionSlice = createSlice({
     initialState,
     reducers: {
         updateTransactionBakingStatus: (state, { payload }) => {
+            console.log(payload)
             const index = state.transactions.findIndex(transaction => transaction.id === payload.id);
             state.transactions[index].isBanking = payload.isBanking;
         }
@@ -21,7 +22,7 @@ const transactionSlice = createSlice({
             state.loadingTransaction = true;
         });
         builder.addCase(getAllTransactionThunk.fulfilled, (state, { payload }) => {
-            const loadedTransactions = payload.map(transaction => {
+            const loadedTransactions = payload.getAllTransaction.map(transaction => {
                 return {
                     ...transaction,
                     customerEmail: transaction.customer.email,

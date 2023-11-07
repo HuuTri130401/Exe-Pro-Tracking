@@ -35,7 +35,7 @@ function App() {
         <Route element={<DashboardRoutes />}>
           {isAdmin && (
             <>
-              <Route index={isAdmin} path="/adminManagePackages" element={<Dashboard Component={AdminTransaction} title={'Admin Manage Packages'} />} />
+              <Route index={isAdmin} path="/adminManageTransactions" element={<Dashboard Component={AdminTransaction} title={'Admin Manage Packages'} />} />
               <Route path="/adminManageUsers" element={<Dashboard Component={AdminUsers} title={'Admin Manage Users'} />} />
             </>
           )}

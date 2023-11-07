@@ -26,7 +26,7 @@ function Menu() {
 
             {isAdmin &&
                 <>
-                    <NavLink to='/adminManagePackages' className='menu__item'>
+                    <NavLink to='/adminManageTransactions' className='menu__item'>
                         <MdTask className='menu__item-icon' />
                         <span>Transactions Management</span>
                     </NavLink>
