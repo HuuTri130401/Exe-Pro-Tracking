@@ -18,7 +18,7 @@ publicClient.interceptors.request.use(config => {
         headers: {
             TokenCybersoft: TOKEN_CYBERSOFT,
             "Content-Type": "application/json",
-            'Origin': 'http://www.protracking.somee.com/api'
+            // 'Origin': 'http://www.protracking.somee.com/api'
         }
     }
     }, error => {
