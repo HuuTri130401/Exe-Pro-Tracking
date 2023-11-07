@@ -47,7 +47,6 @@ const CreateProject = () => {
             <div className="mb-3">
                 <p>Description</p>
                 <EditorMCE editorRef={editorRef}/>
-                <div dangerouslySetInnerHTML={{ __html: editorRef }}></div>
             </div>
             <div className="mb-3">
                 <span>Creator Name: </span>

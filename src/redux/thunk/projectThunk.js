@@ -68,7 +68,7 @@ export const updateProjectThunk = createAsyncThunk(
                 dispatch(getAllProjectThunk());
             }
         } catch ({ message }) {
-            openNotification('error', 'Thất bại', 'Cập nhật thành viên thất bại');
+            openNotification('error', 'Thất bại', 'Cập nhật project thất bại');
             return rejectWithValue(message);
         }
     }
@@ -94,7 +94,7 @@ export const createProjectThunk = createAsyncThunk(
     async (newProject, { dispatch, rejectWithValue }) => {
         try {
             const { statusCode, content } = await projectApi.createProject(newProject);
-            if (statusCode === 200) {
+            if (statusCode === 201) {
                 openNotification('success','Thông báo','Tạo project thành công')
                 return content
             }

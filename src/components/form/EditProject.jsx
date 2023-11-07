@@ -9,21 +9,22 @@ import { updateProjectThunk } from '../../redux/thunk/projectThunk';
 import Select from '../select/Select';
 
 const EditProject = () => {
-
     const dispatch = useDispatch();
     const { projectEdit } = useSelector(state => state.projectSlice);
     const { category } = useSelector(state => state.optionSlice);
     const { values, errors, setFieldValue, handleChange, handleSubmit } = useFormik({
         enableReinitialize: true,
         validationSchema: Yup.object().shape({
-            projectName: Yup.string().required('Tên project không được trống'),
+            title: Yup.string().required('Tên project không được trống'),
             description: Yup.string().required('Mô tả dự án không được trống')
         }),
         initialValues: {
             id: projectEdit?.id,
-            projectName: projectEdit.projectName,
+            title: projectEdit.title,
             description: projectEdit.description,
-            categoryId: projectEdit.categoryId
+            userCreatedName: projectEdit.userCreatedName,
+            subTitle: projectEdit.subTitle,
+
         },
         onSubmit: values => {
             dispatch(updateProjectThunk({ ...values, createor: 0 }));
@@ -36,17 +37,21 @@ const EditProject = () => {
                 <input disabled name='id' value={values.id} onChange={handleChange} type="text" className="form-control" />
             </div>
             <div className="col-md-6">
-                <label className="form-label">Project name</label>
-                <input type="text" name='projectName' value={values.projectName} onChange={handleChange} className="form-control" />
-                <div className="text-danger">{errors.projectName}</div>
+                <label className="form-label">Created By</label>
+                <input disabled name='userCreatedName' value={values.userCreatedName} onChange={handleChange} type="text" className="form-control" />
+            </div>
+
+            <div className="col-md-12">
+                <label className="form-label">Title Name</label>
+                <input type="text" name='title' value={values.title} onChange={handleChange} className="form-control" />
+                <div className="text-danger">{errors.title}</div>
             </div>
             <div className="col-md-12">
-                <Select name='categoryId'
-                    value={values.categoryId}
-                    handleChange={handleChange}
-                    data={category}
-                    keys='projectCategoryName' />
+                <label className="form-label">Sub Title</label>
+                <input name='subTitle' type="text" value={values.subTitle} onChange={handleChange} className="form-control" 
+                    keys='subTitle' />
             </div>
+
             <div className='col-md-12'>
                 <Editor
                     name="description"
@@ -67,6 +72,7 @@ const EditProject = () => {
                 />
                 <div className='text-danger'>{errors.description}</div>
             </div>
+
             <div>
                 <Button type="primary" onClick={() => {
                     handleSubmit();

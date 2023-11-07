@@ -77,15 +77,15 @@ export const createTaskTaskThunk = createAsyncThunk(
     'createTask',
     async (newTask, { dispatch, rejectWithValue }) => {
         try {
-            const { statusCode, content } = await taskApi.createTask(newTask);
-            if (statusCode === 200) {
+            const { statusCode, newTodo } = await taskApi.createTask(newTask);
+            if (statusCode === 201) {
                 dispatch(closeDrawer());
-                dispatch(getProjectDetailThunk(content.projectId));
+                dispatch(getProjectDetailThunk(newTodo.projectId));
                 openNotification('success', 'Thông báo', 'Tạo task thành công');
-                return content;
+                return newTodo;
             }
         } catch ({ message }) {
-            openNotification('error', 'Thông báo', 'Bạn không có quyền tạo task');
+            openNotification('error', 'Thông báo', 'Tạo task không thành công!');
             return rejectWithValue(message);
         }
     }
