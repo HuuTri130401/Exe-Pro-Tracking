@@ -34,7 +34,7 @@ const AdminUsers = () => {
 
     const column = [
         {
-            title: 'User ID',
+            title: 'ID',
             key: 'id',
             dataIndex: 'id'
         },

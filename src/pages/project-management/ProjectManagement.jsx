@@ -13,7 +13,7 @@ const ProjectManagement = () => {
     function stripHtmlTags(html) {
         const doc = new DOMParser().parseFromString(html, 'text/html');
         return doc.body.textContent || '';
-      }
+    }
 
     const { projects } = useSelector(state => state.projectSlice);
     const { userSearch } = useSelector(state => state.userSlice);
@@ -45,9 +45,9 @@ const ProjectManagement = () => {
 
     const column = [
         {
-            title: 'Project ID',
-            key: 'id',
-            dataIndex: 'id'
+            title: 'Id',
+            key: 'index',
+            render: (text, record, index) => <span>{index + 1}</span>
         },
         {
             title: 'Project Title',
@@ -88,14 +88,14 @@ const ProjectManagement = () => {
             dataIndex: 'description',
             render: (text) => <span>{stripHtmlTags(text)}</span>,
             sorter: (item2, item1) => {
-              let categoryName1 = stripHtmlTags(item1.description)?.trim().toLowerCase();
-              let categoryName2 = stripHtmlTags(item2.description)?.trim().toLowerCase();
-              if (categoryName2 < categoryName1) {
-                return -1;
-              }
-              return 1;
+                let categoryName1 = stripHtmlTags(item1.description)?.trim().toLowerCase();
+                let categoryName2 = stripHtmlTags(item2.description)?.trim().toLowerCase();
+                if (categoryName2 < categoryName1) {
+                    return -1;
+                }
+                return 1;
             },
-          },
+        },
         {
             title: 'CreatedBy',
             key: 'createdBy',
@@ -152,7 +152,7 @@ const ProjectManagement = () => {
         //                 <Button style={{ width: '30px', height: '30px', padding: 0, borderRadius: '50%' }}>+</Button>
         //             </Popover>
         //         </div>
-            // }
+        // }
         // },
         {
             title: 'Action',
@@ -213,8 +213,8 @@ const ProjectManagement = () => {
             )}
         </div>
     );
-    
-    
+
+
     // return (
     //     <div>
     //         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
@@ -224,8 +224,8 @@ const ProjectManagement = () => {
     //                 <Button onClick={clearAll}>Clear filters and sorters</Button>
     //             </Space>
     //         </div>
-    //         <Table pagination={{ showSizeChanger: false, pageSize: 6 }} columns={column} size='large' rowKey={"id"} 
-    //         //dataSource={Array.isArray(projects) ? projects : [projects]} 
+    //         <Table pagination={{ showSizeChanger: false, pageSize: 6 }} columns={column} size='large' rowKey={"id"}
+    //         //dataSource={Array.isArray(projects) ? projects : [projects]}
     //         dataSource={Array.isArray(projects.listProjectByCreator) ? projects.listProjectByCreator : []}
     //         onChange={handleChange} />
     //     </div>

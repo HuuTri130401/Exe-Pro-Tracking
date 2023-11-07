@@ -11,7 +11,7 @@ const optionApi = {
         return publicClient.get('Status/getAll');
     },
     taskType:()=>{
-        return publicClient.get('TaskType/g     etAll');
+        return publicClient.get('TaskType/getAll');
     }
 }
 

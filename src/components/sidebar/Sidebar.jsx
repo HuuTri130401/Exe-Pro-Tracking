@@ -28,7 +28,7 @@ function Sidebar() {
         <FaSearch className="sidebar__item-icon" />
         <span className="title">SEARCH PROJECT</span>
       </div>
-      {
+      {/* {
         // <div
         //   className="sidebar__item"
         //   onClick={() => dispatch(openDrawer(true))}
@@ -40,7 +40,7 @@ function Sidebar() {
         <FaPlus className='sidebar__item-icon' />
         <span className="title">CREATE TASK</span>
         </div>
-      }
+      } */}
       <div className="sidebar__bottom">
         <div className="sidebar__item" onClick={() => dispatch(logout())}>
           <MdOutlineLogout className="sidebar__item-icon" />

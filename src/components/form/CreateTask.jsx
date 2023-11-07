@@ -1,10 +1,10 @@
-import { Button, Input } from 'antd';
+import { Button, Input, Select } from 'antd';
 import { useFormik } from 'formik';
 import React, { memo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import InputForm from '../input/InputForm';
 import SearchUserTask from '../search/SearchUserTask';
-import Select from '../select/Select';
+
 import * as Yup from 'yup';
 import TimeTracking from '../time-tracking/TimeTracking';
 import EditorMCE from '../editor-mce/EditorMCE';
@@ -33,13 +33,13 @@ const CreateTask = () => {
       title: '',
       status: '',
       createdBy: customerInfor.customer.id,
-      priority:priorityMapping["5","4","3","2","1"]
+      priority: ''
     },
     validationSchema: Yup.object().shape({
       title: Yup.string().required('Tên task không được trống'),
     }),
     onSubmit: values => {
-      dispatch(createTaskTaskThunk({ ...values}));
+      dispatch(createTaskTaskThunk({ ...values }));
     },
   });
   return (
@@ -47,12 +47,12 @@ const CreateTask = () => {
 
       <div className="col-md-6">
         <label className="form-label">Project Name</label>
-        <Input disabled name='projectId' value={projectDetail?.projectById?.title} type="text"/>
+        <Input disabled name='projectId' value={projectDetail?.projectById?.title} type="text" />
       </div>
-          
+
       <div className="col-md-12 col-lg-6">
-            <p className='mb-2'>Created By</p>
-            <Input disabled name='createdBy' value={customerInfor.customer.username} type="text" />
+        <p className='mb-2'>Created By</p>
+        <Input disabled name='createdBy' value={customerInfor.customer.username} type="text" />
       </div>
 
       <div className="col-md-6">
@@ -66,7 +66,18 @@ const CreateTask = () => {
 
           <div className="col-md-12 col-lg-6">
             <p className='mb-2'>Status</p>
-            <InputForm name='status' onChange={handleChange} value={values.status} type="text" className="form-control" />
+            <Select
+              style={{ width: '100%' }}
+              name='status'
+              onChange={(value) => setFieldValue('status', value)}
+              options={[
+                { value: 'Backlog', label: 'Backlog' },
+                { value: 'Selected for Development', label: 'Selected for Development' },
+                { value: 'In Progress', label: 'In Progress' },
+                { value: 'Doing', label: 'Doing' },
+                { value: 'Done', label: 'Done' },
+              ]}
+            />
             <span className='text-danger'>{errors.status}</span>
           </div>
 
@@ -75,15 +86,26 @@ const CreateTask = () => {
       </div>
 
       <div className="col-12">
-      <div className="col-md-6">
-        <label className="form-label">Priority</label>
-        <InputForm name='priority' onChange={handleChange} value={values.priority} type="number" className="form-control" />
-        <span className='text-danger'>{errors.priority}</span>
-      </div>
+        <div className="col-md-6">
+          <label className="form-label">Priority</label>
+          <Select
+            style={{ width: '100%' }}
+            name='priority'
+            onChange={(value) => setFieldValue('priority', priorityMapping[value])}
+            options={[
+              { value: '1', label: 'Very Low' },
+              { value: '2', label: 'Low' },
+              { value: '3', label: 'Medium' },
+              { value: '4', label: 'High' },
+              { value: '5', label: 'Critical' },
+            ]}
+          />
+          <span className='text-danger'>{errors.priority}</span>
+        </div>
       </div>
 
       <div className="col-12">
-        <Button type='primary' className='me-2' onClick={() => handleSubmit()}>Tạo Task</Button>
+        <Button type='primary' className='me-2' onClick={() => handleSubmit()}>Create Task</Button>
         <Button type='default' onClick={() => closeDrawer(false)}>Cancel</Button>
       </div>
     </form>
@@ -91,4 +113,3 @@ const CreateTask = () => {
 };
 
 export default memo(CreateTask);
-
