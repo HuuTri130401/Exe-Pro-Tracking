@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import transactionApi from "../../api/modules/transaction.api";
-import { openNotification } from "../../components/notification/notification";
 
 export const postTransactionThunk = createAsyncThunk(
     'postTransaction',
