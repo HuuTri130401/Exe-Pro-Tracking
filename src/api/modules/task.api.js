@@ -14,10 +14,10 @@ const taskApi = {
         return privateClient.post(`Project/assignUserTask`, user);
     },
     createTask: (newTask) => {
-        return privateClient.post('Project/createTask', newTask);
+        return privateClient.post(`Todos/Post`, newTask);
     },
     removeTask:(taskId)=>{
-        return privateClient.delete(`Project/removeTask?taskId=${taskId}`);
+        return privateClient.delete(`/Todos/Delete=${taskId}`);
     }
 }
 

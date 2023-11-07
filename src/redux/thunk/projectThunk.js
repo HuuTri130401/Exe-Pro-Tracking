@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import projectApi from "../../api/modules/project.api";
 import { openNotification } from "../../components/notification/notification";
 import { closeDrawer } from "../slice/drawerSlice";
+import { userLocalStorage } from '../../utils/config';
 
 export const getAllProjectThunk = createAsyncThunk(
     'getAllProject',
@@ -60,15 +61,16 @@ export const removeUserFromProject = createAsyncThunk(
 export const updateProjectThunk = createAsyncThunk(
     'updateProject',
     async (project, { dispatch, rejectWithValue }) => {
+        const customerInfor = userLocalStorage.get();
         try {
             const { statusCode } = await projectApi.updateProject(project);
             if (statusCode === 200) {
-                openNotification('success', 'Thành công', `Cập nhật project: ${project.projectName} thành công`);
                 dispatch(closeDrawer())
-                dispatch(getAllProjectThunk());
+                dispatch(getAllProjectThunk(customerInfor.customer.id));
+                openNotification('success', 'Thành công', 'Cập nhật project thành công');
             }
         } catch ({ message }) {
-            openNotification('error', 'Thất bại', 'Cập nhật thành viên thất bại');
+            openNotification('error', 'Thất bại', 'Cập nhật project thất bại');
             return rejectWithValue(message);
         }
     }
@@ -94,7 +96,7 @@ export const createProjectThunk = createAsyncThunk(
     async (newProject, { dispatch, rejectWithValue }) => {
         try {
             const { statusCode, content } = await projectApi.createProject(newProject);
-            if (statusCode === 200) {
+            if (statusCode === 201) {
                 openNotification('success','Thông báo','Tạo project thành công')
                 return content
             }

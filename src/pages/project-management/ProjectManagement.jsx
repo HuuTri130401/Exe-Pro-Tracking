@@ -187,7 +187,6 @@ const ProjectManagement = () => {
             </div>
         },
     ]
-
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
@@ -197,12 +196,40 @@ const ProjectManagement = () => {
                     <Button onClick={clearAll}>Clear filters and sorters</Button>
                 </Space>
             </div>
-            <Table pagination={{ showSizeChanger: false, pageSize: 6 }} columns={column} size='large' rowKey={"id"}
-            //dataSource={Array.isArray(projects) ? projects : [projects]}
-            dataSource={(projects !== undefined && Array.isArray(projects.listProjectByCreator)) ? projects.listProjectByCreator : []}
-            onChange={handleChange} />
+            {projects && Array.isArray(projects.listProjectByCreator) && projects.listProjectByCreator.length > 0 ? (
+                <Table
+                    pagination={{ showSizeChanger: false, pageSize: 6 }}
+                    columns={column}
+                    size='large'
+                    rowKey="id"
+                    dataSource={projects.listProjectByCreator}
+                    onChange={handleChange}
+                />
+            ) : (
+                <div className='notice'>
+                    <p className='notice-title' style={{ fontSize: '18px' }}>You don't have any projects yet.</p>
+                    <Link to="/create" style={{ fontSize: '18px' }}>Create a new project</Link>
+                </div>
+            )}
         </div>
-    )
+    );
+    
+    
+    // return (
+    //     <div>
+    //         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+    //             <h6 className='mb-3'>Project Management</h6>
+    //             <Space style={{ marginBottom: 16 }}>
+    //                 <Button onClick={clearFilters}>Clear filters</Button>
+    //                 <Button onClick={clearAll}>Clear filters and sorters</Button>
+    //             </Space>
+    //         </div>
+    //         <Table pagination={{ showSizeChanger: false, pageSize: 6 }} columns={column} size='large' rowKey={"id"} 
+    //         //dataSource={Array.isArray(projects) ? projects : [projects]} 
+    //         dataSource={Array.isArray(projects.listProjectByCreator) ? projects.listProjectByCreator : []}
+    //         onChange={handleChange} />
+    //     </div>
+    // )
 }
 
 export default ProjectManagement;

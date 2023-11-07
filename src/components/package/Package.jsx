@@ -68,7 +68,7 @@ const Package = ({ features, price, accountType }) => {
             </ul>
             {accountType !== "Free" &&
                 <>
-                    <h6>{price} VNĐ/Month</h6>
+                    <span>{price} VNĐ/Month</span>
                     <button
                         disabled={accountType === "Enterprise"}
                         onClick={handleOpenModal}
