@@ -5,6 +5,7 @@ import { getPaymentTypesThunk } from "../../redux/thunk/paymentThunk";
 import { postTransactionThunk } from "../../redux/thunk/transactionThunk";
 import { userLocalStorage } from "../../utils/config";
 import { openNotification } from "../../components/notification/notification";
+import { openModal, closeModal } from "../../redux/slice/paymentSlice";
 
 const Package = ({ features, price, accountType }) => {
     const dispatch = useDispatch();
@@ -16,19 +17,16 @@ const Package = ({ features, price, accountType }) => {
         "Enterprise": 4
     };
 
-    const [openModal, setOpenModal] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState("");
 
-    const { paymentTypes } = useSelector((state) => state.paymentSlice);
-    const { loading } = useSelector((state) => state.paymentSlice);
+    const { paymentTypes, openModal, loading } = useSelector((state) => state.paymentSlice);
 
     const handleOpenModal = () => {
         dispatch(getPaymentTypesThunk(accountType))
-        setOpenModal(true);
     }
 
     const handleCloseModal = () => {
-        setOpenModal(false);
+        dispatch(closeModal());
         setPaymentMethod("");
     }
 
@@ -49,7 +47,7 @@ const Package = ({ features, price, accountType }) => {
                     openNotification("success", "Submit transaction successfully", "Transaction is being processed");
                 }
             });
-        setOpenModal(false);
+        dispatch(closeModal());
         setPaymentMethod("");
     }
 
@@ -116,6 +114,7 @@ const Package = ({ features, price, accountType }) => {
                                     <Descriptions.Item span={12} label="Payment Method">{paymentMethod}</Descriptions.Item>
                                     <Descriptions.Item span={12} label="Account Type">{accountType}</Descriptions.Item>
                                     <Descriptions.Item span={12} label="Amount">{price}</Descriptions.Item>
+                                    <Descriptions.Item span={12} label="Content">{"ProTracking_" + userInfo.email + "_" + accountType}</Descriptions.Item>
                                 </Descriptions>
                             </div>
                         }

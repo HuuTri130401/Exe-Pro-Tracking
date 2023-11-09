@@ -2,11 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 import { userLocalStorage } from '../../utils/config';
 import { getAllUserThunk, loginThunk } from '../thunk/userThunk';
 import { jwtDecode } from 'jwt-decode';
+import { openNotification } from '../../components/notification/notification';
 
 const initialState = {
     user: userLocalStorage.get(),
-    // userSearch: [],
     users: [],
+    error: undefined,
     loadingUser: false,
 }
 const extractUserRole = (token) => {
@@ -42,6 +43,11 @@ const userSlice = createSlice({
         builder.addCase(getAllUserThunk.fulfilled, (state, { payload }) => {
             console.log(payload);
             state.users = payload;
+            state.loadingUser = false;
+        });
+        builder.addCase(getAllUserThunk.rejected, (state, { payload }) => {
+            openNotification('error', 'Lấy danh sách người dùng thất bại', payload)
+            state.error = payload;
             state.loadingUser = false;
         });
     }

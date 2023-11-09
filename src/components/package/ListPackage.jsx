@@ -11,7 +11,7 @@ const ListPackage = () => {
 			/>
 			<Package
 				features={["Limit 10 user accounts in a project", "Limit  30 projects per user", "Ask 100 questions in every 3 hours", "Cập nhập thông tin từ Google"]}
-				price={"49.000"}
+				price={"39.000"}
 				accountType={"Standard"}
 			/>
 			<Package

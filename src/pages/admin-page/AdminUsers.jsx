@@ -1,17 +1,14 @@
-import { Avatar, Button, Popconfirm, Popover, Space, Table, Tag } from 'antd'
+import { Button, Space, Table} from 'antd'
 import React, { useEffect, useState } from 'react'
-import { MdEdit, MdOutlineDelete } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { assignUserProjectThunk, deleteProjectThunk, getAllProjectThunk, removeUserFromProject } from '../../redux/thunk/projectThunk'
-import { openDrawer } from '../../redux/slice/drawerSlice'
-import { editProject } from '../../redux/slice/projectSlice'
 import { userLocalStorage } from "../../utils/config";
 import { getAllUserThunk } from '../../redux/thunk/userThunk'
+
 const AdminUsers = () => {
 
     const { users } = useSelector(state => state.userSlice);
     const dispatch = useDispatch();
+
     const [filteredInfo, setFilteredInfo] = useState({});
     const [sortedInfo, setSortedInfo] = useState({});
     const creatorId = userLocalStorage.get();
@@ -52,39 +49,7 @@ const AdminUsers = () => {
             title: 'Phone',
             key: 'phone',
             dataIndex: 'phone'
-        },
-        // {
-        //     title: 'Action',
-        //     dataIndex: '',
-        //     key: 'id',
-        //     render: (text, record, index) => <div style={{ display: 'flex' }}>
-        //         <div>
-        //             <span className="bg-primary text-white me-2" style={{ padding: 6, borderRadius: '3px', paddingBottom: 8, cursor: 'pointer' }}
-        //                 onClick={() => {
-        //                     dispatch(openDrawer(false));
-        //                     // dispatch(editUser(record));
-        //                 }}>
-        //                 <MdEdit style={{ fontSize: 18 }} />
-        //             </span>
-        //         </div>
-        //         <div>
-        //             <span>
-        //                 {/* <Popconfirm
-        //                     title="Are you sure to delete this project?"
-        //                     onConfirm={() => {
-        //                         dispatch(deleteProjectThunk(record.id))
-        //                     }}
-        //                     okText="Yes"
-        //                     cancelText="No"
-        //                 >
-        //                     <span className="bg-danger text-white ml-2" style={{ padding: 6, borderRadius: '3px', paddingBottom: 8, cursor: 'pointer' }}>
-        //                         <MdOutlineDelete style={{ fontSize: 18 }} />
-        //                     </span>
-        //                 </Popconfirm> */}
-        //             </span>
-        //         </div>
-        //     </div>
-        // },
+        }
     ]
 
     return (

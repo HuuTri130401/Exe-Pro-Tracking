@@ -46,7 +46,7 @@ export const getAllUserThunk = createAsyncThunk(
                 return listAllChildTask;
             }
         } catch ({ message }) {
-            openNotification('error', 'Thất bại', message);
+            return rejectWithValue(message);
         }
     }
 )

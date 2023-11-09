@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getAllTransactionThunk } from '../thunk/transactionThunk';
+import { openNotification } from '../../components/notification/notification';
 
 const initialState = {
     transactions: [],
@@ -34,6 +35,7 @@ const transactionSlice = createSlice({
             state.loadingTransaction = false;
         });
         builder.addCase(getAllTransactionThunk.rejected, (state, { payload }) => {
+            openNotification('error', 'Lấy danh sách giao dịch thất bại', payload)
             state.error = payload;
             state.loadingTransaction = false;
         });
