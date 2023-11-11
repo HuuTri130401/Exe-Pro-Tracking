@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Loading from "./components/loading/Loading";
 import DashboardRoutes from "./guard/DashboardRoutes";
 import UserRoutes from "./guard/UserRoute";
@@ -15,8 +16,10 @@ import Register from "./pages/user-page/Register";
 import PackageManagement from "./pages/package-management/PackageManagement";
 import { userLocalStorage } from "./utils/config";
 import AdminUsers from "./pages/admin-page/AdminUsers";
+import AIChatBot from "./components/ai-chat-bot/AIChatBot";
 
 function App() {
+  const { showChatBot } = useSelector((state) => state.userSlice);
   const user = userLocalStorage.get();
   const isAdmin = user?.customer?.role === 1;
   const isUser = user?.customer?.role === 0;
@@ -44,10 +47,12 @@ function App() {
             <Route path='/board/:id' element={<Dashboard Component={Board} title={'Board'} />} />
             <Route path="/create" element={<Dashboard Component={CreateProject} title={'Create Project'} />} />
             <Route path="/package" element={<Dashboard Component={PackageManagement} title={'Package Management'} />} />
+            <Route path="/chat" element={<AIChatBot />} />
           </>
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
+      {showChatBot && <AIChatBot />}
     </>
   );
 }
