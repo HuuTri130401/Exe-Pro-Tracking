@@ -33,7 +33,7 @@ const aiChatBotSlice = createSlice({
                 return {
                     message: message.content,
                     sender: message.message_type,
-                    direction: message.message_type == "AI" ? "incoming" : "outgoing"
+                    direction: message.message_type === "AI" ? "incoming" : "outgoing"
                 }
             })
             reverse(loadedMessages);

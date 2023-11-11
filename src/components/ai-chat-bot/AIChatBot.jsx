@@ -29,6 +29,9 @@ const AIChatBot = () => {
         }
     };
 
+    const textFontSize = "10px";
+    const aiIconUrl = "https://cdn4.iconfinder.com/data/icons/artificial-intelligence-166/24/bot_text_chatbot_chat_assistant_ai_operator_1-512.png";
+
     return (
         <div>
             <button className="appChatbotButton" onClick={handleClickChatbotButton}>
@@ -41,14 +44,18 @@ const AIChatBot = () => {
                     <MainContainer>
                         <ChatContainer>
                             <MessageList
+                                // style={{ fontSize: { textFontSize } }}
                                 typingIndicator={loading ? <TypingIndicator content="AI Chatbot is typing..." /> : null}
                             >
                                 {messages.map((message, index) => {
-                                    return <Message key={index} model={message} />
+                                    return <Message key={index} model={message} style={{ fontSize: {textFontSize} }}>
+                                        {message.sender === "AI" &&
+                                            <Avatar src={aiIconUrl} name="AI" />}
+                                    </Message>
                                 })}
                             </MessageList>
                             <MessageInput
-                                style={{ width: "400px" }}
+                                style={{ width: "400px", fontSize: { textFontSize } }}
                                 placeholder="Type message here"
                                 onSend={handleSend}
                                 sendDisabled={loading}

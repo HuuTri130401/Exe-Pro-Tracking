@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Loading from "./components/loading/Loading";
 import DashboardRoutes from "./guard/DashboardRoutes";
 import UserRoutes from "./guard/UserRoute";
@@ -18,6 +19,7 @@ import AdminUsers from "./pages/admin-page/AdminUsers";
 import AIChatBot from "./components/ai-chat-bot/AIChatBot";
 
 function App() {
+  const { showChatBot } = useSelector((state) => state.userSlice);
   const user = userLocalStorage.get();
   const isAdmin = user?.customer?.role === 1;
   const isUser = user?.customer?.role === 0;
@@ -50,7 +52,7 @@ function App() {
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-      <AIChatBot />
+      {showChatBot && <AIChatBot />}
     </>
   );
 }

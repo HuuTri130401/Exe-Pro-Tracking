@@ -16,6 +16,10 @@ function Sidebar() {
     if (!isEmpty(projectDetail)) setVisible(true);
   }, [projectDetail]);
 
+  const handleLogout = () => {
+    dispatch(logout());
+  }
+
   const dispatch = useDispatch();
   return (
     <div className="sidebar">
@@ -42,10 +46,12 @@ function Sidebar() {
         </div>
       } */}
       <div className="sidebar__bottom">
-        <div className="sidebar__item" onClick={() => dispatch(logout())}>
-          <MdOutlineLogout className="sidebar__item-icon" />
-          <span className="title">LOGOUT</span>
-        </div>
+        <Link to={"/"}>
+          <div className="sidebar__item" onClick={handleLogout}>
+            <MdOutlineLogout className="sidebar__item-icon" />
+            <span className="title">LOGOUT</span>
+          </div>
+        </Link>
         <div className="sidebar__item">
           <FaQuestionCircle className="sidebar__item-icon" />
           <span className="title">ABOUT</span>
