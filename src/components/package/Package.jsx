@@ -22,7 +22,7 @@ const Package = ({ features, price, accountType }) => {
     const { paymentTypes, canOpenModal, loading } = useSelector((state) => state.paymentSlice);
 
     const handleOpenModal = () => {
-        dispatch(getPaymentTypesThunk(accountType))
+        dispatch(getPaymentTypesThunk(accountType));
     }
 
     const handleCloseModal = () => {
@@ -51,11 +51,6 @@ const Package = ({ features, price, accountType }) => {
         setPaymentMethod("");
     }
 
-    const processGoogleDriveLink = (link) => {
-        const imageId = link.split("/")[5];
-        return `https://drive.google.com/uc?export=view&id=${imageId}`;
-    }
-
     return (
         <div className="list__package-item">
             <div className="list__package-item-header">{accountType.toUpperCase()}</div>
@@ -77,24 +72,24 @@ const Package = ({ features, price, accountType }) => {
                         loading={loading}
                         title="PAYMENT"
                         width={"60%"}
-                        open={canOpenModal}
+                        open={canOpenModal[accountType]}
                         onCancel={handleCloseModal}
                         footer={[
-                            <Button onClick={() => { setPaymentMethod("TPBank") }}>
+                            <Button key={1} onClick={() => { setPaymentMethod("TPBank"); console.log(price) }}>
                                 TPBank
                             </Button>,
-                            <Button onClick={() => { setPaymentMethod("ZaloPay") }}>
+                            <Button key={2} onClick={() => { setPaymentMethod("ZaloPay") }}>
                                 ZaloPay
                             </Button>,
-                            <Button hidden={paymentMethod == ""} onClick={handleSubmit} type="primary" >
+                            <Button key={3} hidden={paymentMethod == ""} onClick={handleSubmit} type="primary" >
                                 Submit
                             </Button>
                         ]}
                     >
                         {paymentMethod !== "" &&
-                            <div class="row">
+                            <div className="row">
                                 <img
-                                    src={processGoogleDriveLink(paymentTypes[paymentMethod].qrCode)}
+                                    src={paymentTypes[paymentMethod].qrCode}
                                     alt={paymentMethod}
                                     style={{
                                         width: "30%",
