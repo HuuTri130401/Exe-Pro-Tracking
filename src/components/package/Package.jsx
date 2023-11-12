@@ -19,7 +19,7 @@ const Package = ({ features, price, accountType }) => {
 
     const [paymentMethod, setPaymentMethod] = useState("");
 
-    const { paymentTypes, openModal, loading } = useSelector((state) => state.paymentSlice);
+    const { paymentTypes, canOpenModal, loading } = useSelector((state) => state.paymentSlice);
 
     const handleOpenModal = () => {
         dispatch(getPaymentTypesThunk(accountType))
@@ -77,7 +77,7 @@ const Package = ({ features, price, accountType }) => {
                         loading={loading}
                         title="PAYMENT"
                         width={"60%"}
-                        open={openModal}
+                        open={canOpenModal}
                         onCancel={handleCloseModal}
                         footer={[
                             <Button onClick={() => { setPaymentMethod("TPBank") }}>

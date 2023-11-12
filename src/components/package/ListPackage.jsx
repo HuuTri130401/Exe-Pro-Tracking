@@ -16,7 +16,7 @@ const ListPackage = () => {
 			/>
 			<Package
 				features={["Unlimited user accounts in a project", "Unlimited projects per user", "Gain access to Chat GPT", "Project knowledge"]}
-				price={"99.000"}
+				price={"79.000"}
 				accountType={"Premium"}
 			/>
 			<Package

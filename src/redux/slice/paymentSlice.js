@@ -4,7 +4,7 @@ import { openNotification } from '../../components/notification/notification';
 
 const initialState = {
     paymentTypes: [],
-    openModal: false,
+    canOpenModal: false,
     loading: false,
     error: null
 };
@@ -14,10 +14,10 @@ const paymentSlice = createSlice({
     initialState,
     reducers: {
         openModal: (state) => {
-            state.openModal = true;
+            state.canOpenModal = true;
         },
         closeModal: (state) => {
-            state.openModal = false;
+            state.canOpenModal = false;
         },
     },
     extraReducers: (builder) => {
@@ -36,7 +36,7 @@ const paymentSlice = createSlice({
                 };
             });
             state.paymentTypes = loadedPaymentTypes;
-            state.canOpenModel = true;
+            state.canOpenModal = true;
             state.loading = false;
         });
         builder.addCase(getPaymentTypesThunk.rejected, (state, { payload }) => {
