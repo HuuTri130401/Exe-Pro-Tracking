@@ -7,21 +7,30 @@ import { userLocalStorage } from "../../utils/config";
 import { openNotification } from "../../components/notification/notification";
 import { openModal, closeModal } from "../../redux/slice/paymentSlice";
 import { accountTypeMap } from "../../utils/config";
+import { set } from "lodash";
 
 const Package = ({ features, price, accountType }) => {
     const dispatch = useDispatch();
     const userInfo = userLocalStorage.get().customer;
 
     const [paymentMethod, setPaymentMethod] = useState("");
+    const [canOpenModal, setCanOpenModal] = useState(false);
 
-    const { paymentTypes, canOpenModal, loading } = useSelector((state) => state.paymentSlice);
+    const { paymentTypes, loading } = useSelector((state) => state.paymentSlice);
 
     const handleOpenModal = () => {
-        dispatch(getPaymentTypesThunk(accountType));
+        dispatch(getPaymentTypesThunk(accountType)).
+            then((response) => {
+                if (response.type == getPaymentTypesThunk.fulfilled) {
+                    setCanOpenModal(true);
+                } else {
+                    openNotification("error", "Get payment types failed", response.error.message);
+                }
+            });
     }
 
     const handleCloseModal = () => {
-        dispatch(closeModal());
+        setCanOpenModal(false);
         setPaymentMethod("");
     }
 
@@ -43,7 +52,7 @@ const Package = ({ features, price, accountType }) => {
                     openNotification("success", "Submit transaction successfully", "Transaction is being processed");
                 }
             });
-        dispatch(closeModal());
+        setCanOpenModal(false);
         setPaymentMethod("");
     }
 
@@ -68,7 +77,7 @@ const Package = ({ features, price, accountType }) => {
                         loading={loading}
                         title="PAYMENT"
                         width={"60%"}
-                        open={canOpenModal[accountType]}
+                        open={canOpenModal}
                         onCancel={handleCloseModal}
                         footer={[
                             <Button key={1} onClick={() => { setPaymentMethod("TPBank") }}>
