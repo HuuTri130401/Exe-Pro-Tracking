@@ -37,6 +37,7 @@ const Package = ({ features, price, accountType }) => {
             "paymentId": paymentTypes[paymentMethod].id,
             "content": userInfo.email + "_" + userInfo.phone,
             "amount": parseInt(price.replace(".", "")),
+            "paymentDate": new Date().toISOString(),
             "isBanking": false
         }))
             .then((response) => {
@@ -75,7 +76,7 @@ const Package = ({ features, price, accountType }) => {
                         open={canOpenModal[accountType]}
                         onCancel={handleCloseModal}
                         footer={[
-                            <Button key={1} onClick={() => { setPaymentMethod("TPBank"); console.log(price) }}>
+                            <Button key={1} onClick={() => { setPaymentMethod("TPBank") }}>
                                 TPBank
                             </Button>,
                             <Button key={2} onClick={() => { setPaymentMethod("ZaloPay") }}>
