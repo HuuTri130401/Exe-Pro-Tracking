@@ -6,11 +6,11 @@ import { openNotification } from '../../components/notification/notification';
 
 const initialState = {
     user: userLocalStorage.get(),
-    showChatBot: false,
     users: [],
     error: undefined,
     loadingUser: false,
 }
+
 const extractUserRole = (token) => {
     try {
         const tokenPayload = jwtDecode.decode(token);
@@ -27,7 +27,6 @@ const userSlice = createSlice({
         logout: (state) => {
             state.user = null;
             state.role = null; // Thêm trường role
-            state.showChatBot = false;
             userLocalStorage.remove();
             localStorage.removeItem('TOKEN');
         }
@@ -40,12 +39,10 @@ const userSlice = createSlice({
             state.user = payload;
             const token = localStorage.getItem('TOKEN');
             state.role = extractUserRole(token); // Lưu vai trò vào trạng thái
-            state.showChatBot = true;
         });
         builder.addCase(loginThunk.rejected, (state, { payload }) => {
             state.error = payload;
             state.loadingUser = false;
-            state.showChatBot = false;
         });
 
         builder.addCase(getAllUserThunk.pending, (state) => {

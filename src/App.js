@@ -19,11 +19,12 @@ import AdminUsers from "./pages/admin-page/AdminUsers";
 import AIChatBot from "./components/ai-chat-bot/AIChatBot";
 
 function App() {
-  const { showChatBot } = useSelector((state) => state.userSlice);
-  const user = userLocalStorage.get();
+  const { user } = useSelector(state => state.userSlice);
   const isAdmin = user?.customer?.role === 1;
   const isUser = user?.customer?.role === 0;
+
   return (
+    console.log(userLocalStorage.get()),
     <>
       <Loading />
       <Routes>
@@ -52,7 +53,7 @@ function App() {
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-      {showChatBot && <AIChatBot />}
+      {user !== null && <AIChatBot />}
     </>
   );
 }
