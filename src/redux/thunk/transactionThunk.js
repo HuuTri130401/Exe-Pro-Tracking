@@ -36,3 +36,15 @@ export const updateTransactionThunk = createAsyncThunk(
         }
     }
 )
+
+export const getTransactionsByUserIdThunk = createAsyncThunk(
+    'getTransactionsByUserId',
+    async (userId, { rejectWithValue }) => {
+        try {
+            const response = await transactionApi.getTransactionsByUserId(userId);
+            return response;
+        } catch ({ message }) {
+            return rejectWithValue(message);
+        }
+    }
+)

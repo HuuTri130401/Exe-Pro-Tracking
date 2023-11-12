@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllTransactionThunk } from '../thunk/transactionThunk';
+import { getAllTransactionThunk, getTransactionsByUserIdThunk } from '../thunk/transactionThunk';
 import { openNotification } from '../../components/notification/notification';
 
 const initialState = {
+    transactionsHistory: [],
     transactions: [],
     loadingTransaction: false,
     error: null,
@@ -39,6 +40,27 @@ const transactionSlice = createSlice({
             state.error = payload;
             state.loadingTransaction = false;
         });
+
+        builder.addCase(getTransactionsByUserIdThunk.pending, (state) => {
+            state.loadingTransaction = true;
+        })
+        builder.addCase(getTransactionsByUserIdThunk.fulfilled, (state, { payload }) => {
+            console.log(payload);
+            var loadedTransactions = [];
+            payload.listTransaction.forEach(element => {
+                loadedTransactions.push({
+                    ...element,
+                    id: loadedTransactions.length + 1,
+                })
+            });
+            state.transactionsHistory = loadedTransactions;
+            state.loadingTransaction = false;
+        })
+        builder.addCase(getTransactionsByUserIdThunk.rejected, (state, { payload }) => {
+            openNotification('error', 'Lấy danh sách giao dịch thất bại', payload)
+            state.error = payload;
+            state.loadingTransaction = false;
+        })
     }
 });
 

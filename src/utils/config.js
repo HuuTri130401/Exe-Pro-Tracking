@@ -1,5 +1,6 @@
 // export const BASE_URL = "https://localhost:7266/api";
 export const BASE_URL = "https://www.protracking.somee.com/api";
+// export const CHAT_SERVICE_URL = "http://localhost:8080";
 export const CHAT_SERVICE_URL = "https://qgrwb4z2pf.ap-southeast-1.awsapprunner.com/";
 
 export const TOKEN_CYBERSOFT =
