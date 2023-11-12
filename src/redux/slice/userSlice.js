@@ -52,7 +52,6 @@ const userSlice = createSlice({
             state.loadingUser = true;
         });
         builder.addCase(getAllUserThunk.fulfilled, (state, { payload }) => {
-            console.log(payload);
             state.users = payload;
             state.loadingUser = false;
         });

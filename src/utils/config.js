@@ -22,6 +22,13 @@ export const STATUS_CODE = {
   SERVER: 500,
 };
 
+export const accountTypeMap = {
+  1: "Free",
+  2: "Standard",
+  3: "Premium",
+  4: "Enterprise"
+};
+
 export const userLocalStorage = {
     set: (userData) => {
         let userJson = JSON.stringify(userData);

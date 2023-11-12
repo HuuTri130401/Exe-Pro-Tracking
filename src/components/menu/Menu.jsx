@@ -5,7 +5,8 @@ import { Button } from 'antd';
 import { FiPackage, FiPaperclip, FiSettings } from 'react-icons/fi';
 import { MdCreate, MdDashboard, MdEqualizer, MdErrorOutline, MdOutlineLocalShipping, MdTask, MdViewInAr } from 'react-icons/md';
 import { useSelector } from 'react-redux';
-import { userLocalStorage } from '../../utils/config';
+import { userLocalStorage, accountTypeMap } from '../../utils/config';
+
 function Menu() {
     const { projectDetail } = useSelector(state => state.projectSlice);
     const navigate = useNavigate();
@@ -20,6 +21,7 @@ function Menu() {
                 <img src={customerInfor.customer.avatar || './img/profile.png'} alt="avatar" />
                 <div className="menu__user-info">
                     <div className='framework'>{isAdmin ? "ADMIN" : customerInfor.customer.username}</div>
+                    <div className='framework'>{accountTypeMap[customerInfor.customer.accountTypeId]}</div>
                     <div className='project'>ProTracking</div>
                 </div>
             </div>
