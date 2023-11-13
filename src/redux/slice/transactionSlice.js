@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getAllTransactionThunk, getTransactionsByUserIdThunk } from '../thunk/transactionThunk';
 import { openNotification } from '../../components/notification/notification';
+import { logout } from './userSlice';
 
 const initialState = {
     transactionsHistory: [],
@@ -60,6 +61,13 @@ const transactionSlice = createSlice({
             openNotification('error', 'Lấy danh sách giao dịch thất bại', payload)
             state.error = payload;
             state.loadingTransaction = false;
+        })
+
+        builder.addCase(logout, (state) => {
+            state.transactionsHistory = [];
+            state.transactions = [];
+            state.loadingTransaction = false;
+            state.error = null;
         })
     }
 });

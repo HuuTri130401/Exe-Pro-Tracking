@@ -79,6 +79,8 @@ const aiChatBotSlice = createSlice({
         builder.addCase(logout, (state, { payload }) => {
             state.messages = [];
             state.isLoadedHistory = false;
+            state.loading = false;
+            state.error = null;
         })
     }
 });
