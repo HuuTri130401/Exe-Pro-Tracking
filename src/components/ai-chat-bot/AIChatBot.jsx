@@ -8,12 +8,11 @@ import { sendMessage, clearMessagesHistory } from "../../redux/slice/aiChatBotSl
 const AIChatBot = () => {
     const [showChatbot, toggleChatbot] = useState(false);
 
-    const { loading } = useSelector((state) => state.aiChatBotSlice);
-    const { messages } = useSelector((state) => state.aiChatBotSlice);
+    const { loading, messages, isLoadedHistory } = useSelector((state) => state.aiChatBotSlice);
     const dispatch = useDispatch();
 
     const handleClickChatbotButton = () => {
-        if (!showChatbot && messages.length === 0) {
+        if (!showChatbot && isLoadedHistory === false) {
             dispatch(getMessagesHistoryThunk({ skip: 0, limit: 10 }, {}));
         }
         toggleChatbot(!showChatbot);

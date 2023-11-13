@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getMessagesHistoryThunk, clearMessagesHistoryThunk, sendMessageThunk } from "../thunk/aiChatBotThunk";
 import { reverse } from "lodash";
+import { logout } from "./userSlice";
 
 const initialState = {
     messages: [],
+    isLoadedHistory: false,
     loading: false,
     error: null
 };
@@ -38,10 +40,12 @@ const aiChatBotSlice = createSlice({
             })
             reverse(loadedMessages);
             state.messages = loadedMessages;
+            state.isLoadedHistory = true;
         })
         builder.addCase(getMessagesHistoryThunk.rejected, (state, { payload }) => {
             state.loading = false;
             state.error = payload;
+            state.isLoadedHistory = true;
         })
 
         builder.addCase(clearMessagesHistoryThunk.pending, (state, { payload }) => {
@@ -70,6 +74,11 @@ const aiChatBotSlice = createSlice({
         builder.addCase(sendMessageThunk.rejected, (state, { payload }) => {
             state.loading = false;
             state.error = payload;
+        })
+
+        builder.addCase(logout, (state, { payload }) => {
+            state.messages = [];
+            state.isLoadedHistory = false;
         })
     }
 });

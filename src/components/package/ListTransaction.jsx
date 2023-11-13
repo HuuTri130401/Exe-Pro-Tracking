@@ -45,11 +45,6 @@ const ListTransaction = () => {
             dataIndex: 'paymentDate'
         },
         {
-            title: 'ExpiredDate',
-            key: 'endDate',
-            dataIndex: 'endDate'
-        },
-        {
             title: 'Is Accepted',
             key: 'isBanking',
             dataIndex: 'isBanking',

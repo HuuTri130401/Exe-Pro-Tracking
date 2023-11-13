@@ -20,8 +20,8 @@ const ListPackage = () => {
 				accountType={"Premium"}
 			/>
 			<Package
-				features={["Future planning"]}
-				price={"129.000"}
+				features={["Future plan"]}
+				price={"Coming Soon"}
 				accountType={"Enterprise"}
 			/>
 		</div>
