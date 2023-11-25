@@ -44,7 +44,7 @@ const AIChatBot = () => {
                         <ChatContainer>
                             <ConversationHeader>
                                 <Avatar src={aiIconUrl} name="AI" />
-                                <ConversationHeader.Content userName="AI" />
+                                <ConversationHeader.Content userName="AI Chat bot" />
                             </ConversationHeader>
                             <MessageList
                                 typingIndicator={loading ? <TypingIndicator content="AI Chatbot is typing..." /> : null}
