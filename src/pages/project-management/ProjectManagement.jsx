@@ -39,9 +39,10 @@ const ProjectManagement = () => {
     };
 
 
-    // const data = projects?.map((item) => {
-    //     return { text: item.listProjectByCreator.title, value: item.listProjectByCreator.title }
-    // });
+    const data = projects?.listProjectByCreator?.map((item) => {
+        return { text: item.title, value: item.title };
+      });
+      
 
     const column = [
         {
@@ -54,9 +55,9 @@ const ProjectManagement = () => {
             key: 'title',
             dataIndex: 'title',
             filterSearch: true,
-            //filteredValue: filteredInfo.listProjectByCreator.title || null,
-            //filters: data,
-            // onFilter: (value, record) => record.title.startsWith(value),
+            filteredValue: filteredInfo.title || null,
+            filters: data,
+            onFilter: (value, record) => record.title.startsWith(value),
             render: (text, record, index) => {
                 return <Link to={`/board/${record.id}`}> {text}</Link>
             },
@@ -203,7 +204,7 @@ const ProjectManagement = () => {
                     size='large'
                     rowKey="id"
                     // dataSource={projects.listProjectByCreator}
-                    dataSource={projects.listProjectByCreator.filter(project => project.status === "Inactive")}
+                    dataSource={projects.listProjectByCreator.filter(project => project.status !== "Inactive")}
                     onChange={handleChange}
                 />
             ) : (
