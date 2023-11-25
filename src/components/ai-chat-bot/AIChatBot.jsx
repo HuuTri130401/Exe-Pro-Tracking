@@ -42,6 +42,10 @@ const AIChatBot = () => {
                 <div className="appChatbotContainer">
                     <MainContainer>
                         <ChatContainer>
+                            <ConversationHeader>
+                                <Avatar src={aiIconUrl} name="AI" />
+                                <ConversationHeader.Content userName="AI" />
+                            </ConversationHeader>
                             <MessageList
                                 typingIndicator={loading ? <TypingIndicator content="AI Chatbot is typing..." /> : null}
                             >
@@ -54,15 +58,15 @@ const AIChatBot = () => {
                                     </div>
                                 })}
                             </MessageList>
-                                <MessageInput
-                                    style={{ width: "400px", fontSize: "19px"}}
-                                    placeholder="Type message here"
-                                    onSend={handleSend}
-                                    sendDisabled={loading}
-                                    sendOnReturnDisabled={loading}
-                                    autoFocus={true}
-                                    attachButton={false}
-                                />
+                            <MessageInput
+                                style={{ width: "400px", fontSize: "19px" }}
+                                placeholder="Type message here"
+                                onSend={handleSend}
+                                sendDisabled={loading}
+                                sendOnReturnDisabled={loading}
+                                autoFocus={true}
+                                attachButton={false}
+                            />
                             {/* </div> */}
                         </ChatContainer>
                     </MainContainer>
