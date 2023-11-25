@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, ConversationHeader, Avatar } from '@chatscope/chat-ui-kit-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, ConversationHeader, Avatar, Button } from '@chatscope/chat-ui-kit-react';
 import { useDispatch, useSelector } from "react-redux";
 import { getMessagesHistoryThunk, clearMessagesHistoryThunk, sendMessageThunk } from "../../redux/thunk/aiChatBotThunk";
 import { sendMessage, clearMessagesHistory } from "../../redux/slice/aiChatBotSlice"
@@ -18,6 +20,11 @@ const AIChatBot = () => {
         toggleChatbot(!showChatbot);
     };
 
+    const handleClearMessages = () => {
+        dispatch(clearMessagesHistory());
+        dispatch(clearMessagesHistoryThunk());
+    };
+
     const handleSend = async (message) => {
         if (message === "!clear") {
             dispatch(clearMessagesHistory());
@@ -28,8 +35,9 @@ const AIChatBot = () => {
         }
     };
 
-    const textFontSize = "10px";
     const aiIconUrl = "https://cdn4.iconfinder.com/data/icons/artificial-intelligence-166/24/bot_text_chatbot_chat_assistant_ai_operator_1-512.png";
+    const aiIconUrl2 = "https://drive.google.com/uc?export=view&id=1_t6kM26SHjHeEklXNqZ4XJ0yt3Y7wPsg";
+    // const aiIconUrl2 = "../../assets/rb.svg";
 
     return (
         <div>
@@ -43,7 +51,6 @@ const AIChatBot = () => {
                     <MainContainer>
                         <ChatContainer>
                             <ConversationHeader>
-                                <Avatar src={aiIconUrl} name="AI" />
                                 <ConversationHeader.Content userName="AI Chat bot" />
                             </ConversationHeader>
                             <MessageList
@@ -53,24 +60,46 @@ const AIChatBot = () => {
                                     return <div className="appChatbotMessage">
                                         <Message key={index} model={message}>
                                             {message.sender === "AI" &&
-                                                <Avatar src={aiIconUrl} name="AI" style={{}} />}
+                                                <Avatar src={aiIconUrl2} name="AI" style={{ scale: "2" }} />}
                                         </Message>
                                     </div>
                                 })}
                             </MessageList>
-                            <MessageInput
-                                style={{ width: "400px", fontSize: "19px" }}
-                                placeholder="Type message here"
-                                onSend={handleSend}
-                                sendDisabled={loading}
-                                sendOnReturnDisabled={loading}
-                                autoFocus={true}
-                                attachButton={false}
-                            />
-                            {/* </div> */}
-                        </ChatContainer>
-                    </MainContainer>
-                </div>
+                            <div as="MessageInput">
+                                <div as={MessageInput} style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    borderTop: "1px dashed #d1dbe4"
+                                }}>
+                                    <Button
+                                        icon={<FontAwesomeIcon icon={faTrash} />}
+                                        onClick={handleClearMessages}
+                                        disabled={loading}
+                                        labelPosition="left"
+                                        style={{ fontSize: "19px", margin: "5px 5px" }}
+                                    />
+                                    <MessageInput
+                                        style={{
+                                            marginLeft: "-20px",
+                                            fontSize: "19px",
+                                            flexGrow: 1,
+                                            borderTop: 0,
+                                            flexShrink: "initial"
+                                        }}
+                                        placeholder="Type message here"
+                                        onSend={handleSend}
+                                        sendDisabled={loading}
+                                        sendOnReturnDisabled={loading}
+                                        autoFocus={true}
+                                        attachButton={false}
+                                        attachDisabled={loading}
+                                        onAttachClick={handleClearMessages}
+                                    />
+                                </div>
+                            </div>
+                        </ChatContainer >
+                    </MainContainer >
+                </div >
             }
         </div >
     )
