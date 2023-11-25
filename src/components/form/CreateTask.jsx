@@ -39,6 +39,15 @@ const CreateTask = () => {
       title: Yup.string().required('Tên task không được trống'),
     }),
     onSubmit: values => {
+      values = {
+        ...values,
+        labelId: 0,
+        startDate: new Date().toISOString(),
+        dueDate: new Date().toISOString(),
+        reportTo: 0,
+        assignee: 0,
+        iconPriority: ""
+      }
       dispatch(createTaskTaskThunk({ ...values }));
     },
   });
