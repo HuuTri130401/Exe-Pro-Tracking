@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, ConversationHeader, Avatar, Button } from '@chatscope/chat-ui-kit-react';
 import { useDispatch, useSelector } from "react-redux";
 import { getMessagesHistoryThunk, clearMessagesHistoryThunk, sendMessageThunk } from "../../redux/thunk/aiChatBotThunk";
@@ -26,18 +26,9 @@ const AIChatBot = () => {
     };
 
     const handleSend = async (message) => {
-        if (message === "!clear") {
-            dispatch(clearMessagesHistory());
-            dispatch(clearMessagesHistoryThunk());
-        } else {
-            dispatch(sendMessage(message));
-            dispatch(sendMessageThunk(message));
-        }
+        dispatch(sendMessage(message));
+        dispatch(sendMessageThunk(message));
     };
-
-    const aiIconUrl = "https://cdn4.iconfinder.com/data/icons/artificial-intelligence-166/24/bot_text_chatbot_chat_assistant_ai_operator_1-512.png";
-    const aiIconUrl2 = "https://drive.google.com/uc?export=view&id=1_t6kM26SHjHeEklXNqZ4XJ0yt3Y7wPsg";
-    // const aiIconUrl2 = "../../assets/rb.svg";
 
     return (
         <div>
@@ -51,16 +42,16 @@ const AIChatBot = () => {
                     <MainContainer>
                         <ChatContainer>
                             <ConversationHeader>
-                                <ConversationHeader.Content userName="AI Chat bot" />
+                                <ConversationHeader.Content userName="Pixel Chat Bot" />
                             </ConversationHeader>
                             <MessageList
-                                typingIndicator={loading ? <TypingIndicator content="AI Chatbot is typing..." /> : null}
+                                typingIndicator={loading ? <TypingIndicator content="Pixel is typing..." /> : null}
                             >
                                 {messages.map((message, index) => {
                                     return <div className="appChatbotMessage">
                                         <Message key={index} model={message}>
                                             {message.sender === "AI" &&
-                                                <Avatar src={aiIconUrl2} name="AI" style={{ scale: "2" }} />}
+                                                <Avatar src="./img/chat_bot_icon.svg" name="AI" style={{ scale: "2" }} />}
                                         </Message>
                                     </div>
                                 })}
