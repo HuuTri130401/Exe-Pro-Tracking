@@ -202,7 +202,8 @@ const ProjectManagement = () => {
                     columns={column}
                     size='large'
                     rowKey="id"
-                    dataSource={projects.listProjectByCreator}
+                    // dataSource={projects.listProjectByCreator}
+                    dataSource={projects.listProjectByCreator.filter(project => project.status === "Inactive")}
                     onChange={handleChange}
                 />
             ) : (
