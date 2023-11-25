@@ -42,19 +42,24 @@ const AIChatBot = () => {
                 <div className="appChatbotContainer">
                     <MainContainer>
                         <ChatContainer>
+                            <ConversationHeader>
+                                <Avatar src={aiIconUrl} name="AI" />
+                                <ConversationHeader.Content userName="AI Chat bot" />
+                            </ConversationHeader>
                             <MessageList
-                                // style={{ fontSize: { textFontSize } }}
                                 typingIndicator={loading ? <TypingIndicator content="AI Chatbot is typing..." /> : null}
                             >
                                 {messages.map((message, index) => {
-                                    return <Message key={index} model={message} style={{ fontSize: {textFontSize} }}>
-                                        {message.sender === "AI" &&
-                                            <Avatar src={aiIconUrl} name="AI" />}
-                                    </Message>
+                                    return <div className="appChatbotMessage">
+                                        <Message key={index} model={message}>
+                                            {message.sender === "AI" &&
+                                                <Avatar src={aiIconUrl} name="AI" style={{}} />}
+                                        </Message>
+                                    </div>
                                 })}
                             </MessageList>
                             <MessageInput
-                                style={{ width: "400px", fontSize: { textFontSize } }}
+                                style={{ width: "400px", fontSize: "19px" }}
                                 placeholder="Type message here"
                                 onSend={handleSend}
                                 sendDisabled={loading}
@@ -62,6 +67,7 @@ const AIChatBot = () => {
                                 autoFocus={true}
                                 attachButton={false}
                             />
+                            {/* </div> */}
                         </ChatContainer>
                     </MainContainer>
                 </div>
