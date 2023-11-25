@@ -15,7 +15,7 @@ const DragDrop = ({ projectDetail }) => {
     } else if (source.index === destination.index && source.droppableId === destination.droppableId) {
       return;
     }
-    
+
     dispatch(updateStatusTaskThunk({
       taskId: id,
       statusId: destination.droppableId,
@@ -25,8 +25,8 @@ const DragDrop = ({ projectDetail }) => {
 
   const renderTaskList = () => {
     const project = projectDetail.projectById;
-    const initialStatuses = ['Backlog', 'Selected for Development', 'In Progress', 'Doing', 'Done'];
-  
+    const initialStatuses = ['Backlog', 'Selected for Development', 'In Progress', 'Testing', 'Done'];
+
     if (project && project.todos) {
       return initialStatuses.map((status, index) => {
         const filteredTasks = project.todos.filter((task) => task.status === status);
@@ -42,7 +42,7 @@ const DragDrop = ({ projectDetail }) => {
       return null; // or handle the case where project or project.todos is not available
     }
   };
-  
+
   return (
     <div className="list__board">
       <DragDropContext onDragEnd={handleDrag}>

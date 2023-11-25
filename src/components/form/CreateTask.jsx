@@ -3,11 +3,8 @@ import { useFormik } from 'formik';
 import React, { memo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import InputForm from '../input/InputForm';
-import SearchUserTask from '../search/SearchUserTask';
 
 import * as Yup from 'yup';
-import TimeTracking from '../time-tracking/TimeTracking';
-import EditorMCE from '../editor-mce/EditorMCE';
 import { createTaskTaskThunk } from '../../redux/thunk/taskThunk';
 import { closeDrawer } from '../../redux/slice/drawerSlice';
 import { userLocalStorage } from '../../utils/config';
@@ -83,7 +80,7 @@ const CreateTask = () => {
                 { value: 'Backlog', label: 'Backlog' },
                 { value: 'Selected for Development', label: 'Selected for Development' },
                 { value: 'In Progress', label: 'In Progress' },
-                { value: 'Doing', label: 'Doing' },
+              { value: 'Testing', label: 'Testing' },
                 { value: 'Done', label: 'Done' },
               ]}
             />

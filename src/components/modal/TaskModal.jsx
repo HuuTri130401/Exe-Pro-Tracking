@@ -21,12 +21,11 @@ const TaskModal = () => {
     const editorRef = useRef(null);
     const dispatch = useDispatch();
 
-    
-
     const handleChange = (e) => {
         const { name, value } = e.target
         dispatch(updateTaskThunk({ ...taskDetail, [name]: value }));
     };
+
     const renderEditTaskName = () => {
         return <div style={{ display: 'flex' }}>
             <InputForm inputRef={inputRef} name='taskName' value={taskDetail.taskName} />
@@ -36,6 +35,7 @@ const TaskModal = () => {
             }}>Submit</Button>
         </div>
     }
+
     const renderEditDescription = () => {
         return <>
             <EditorMCE
@@ -84,7 +84,12 @@ const TaskModal = () => {
         >
             <div className="task">
                 <div className="task-header mt-3">
-                    <Select name='typeId' value={taskDetail.typeId} data={taskType} keys='taskType' handleChange={handleChange} />
+                    <Select name='typeId'
+                        value={taskDetail.typeId}
+                        data={taskType}
+                        keys='taskType'
+                        handleChange={handleChange}
+                    />
                     <h5 style={{ fontSize: 15, margin: 0 }}>TASK-{taskDetail.taskId}</h5>
                     <div className='task-header__report'>
                         <div className='task-header__report-item'>

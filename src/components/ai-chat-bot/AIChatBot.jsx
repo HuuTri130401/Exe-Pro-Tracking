@@ -43,25 +43,27 @@ const AIChatBot = () => {
                     <MainContainer>
                         <ChatContainer>
                             <MessageList
-                                // style={{ fontSize: { textFontSize } }}
                                 typingIndicator={loading ? <TypingIndicator content="AI Chatbot is typing..." /> : null}
                             >
                                 {messages.map((message, index) => {
-                                    return <Message key={index} model={message} style={{ fontSize: {textFontSize} }}>
-                                        {message.sender === "AI" &&
-                                            <Avatar src={aiIconUrl} name="AI" />}
-                                    </Message>
+                                    return <div className="appChatbotMessage">
+                                        <Message key={index} model={message}>
+                                            {message.sender === "AI" &&
+                                                <Avatar src={aiIconUrl} name="AI" style={{}} />}
+                                        </Message>
+                                    </div>
                                 })}
                             </MessageList>
-                            <MessageInput
-                                style={{ width: "400px", fontSize: { textFontSize } }}
-                                placeholder="Type message here"
-                                onSend={handleSend}
-                                sendDisabled={loading}
-                                sendOnReturnDisabled={loading}
-                                autoFocus={true}
-                                attachButton={false}
-                            />
+                                <MessageInput
+                                    style={{ width: "400px", fontSize: "19px"}}
+                                    placeholder="Type message here"
+                                    onSend={handleSend}
+                                    sendDisabled={loading}
+                                    sendOnReturnDisabled={loading}
+                                    autoFocus={true}
+                                    attachButton={false}
+                                />
+                            {/* </div> */}
                         </ChatContainer>
                     </MainContainer>
                 </div>
