@@ -42,7 +42,6 @@ const ProjectManagement = () => {
     const data = projects?.listProjectByCreator?.map((item) => {
         return { text: item.title, value: item.title };
       });
-      
 
     const column = [
         {

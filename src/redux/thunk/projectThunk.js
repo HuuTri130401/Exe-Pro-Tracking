@@ -28,32 +28,26 @@ export const getProjectDetailThunk = createAsyncThunk(
     }
 )
 
-export const assignUserProjectThunk = createAsyncThunk(
-    'assignUserProject',
-    async (userProject, { dispatch, rejectWithValue }) => {
+export const getProjectParticipantsThunk = createAsyncThunk(
+    'getProjectParticipants',
+    async (projectId, { dispatch, rejectWithValue }) => {
         try {
-            const { statusCode } = await projectApi.assignUserProject(userProject);
-            if (statusCode === 200) {
-                openNotification('success', 'Thành công', 'Thêm thành viên thành công');
-                dispatch(getAllProjectThunk())
-            }
+            const content = await projectApi.getProjectParticipants(projectId);
+            return content;
         } catch ({ message }) {
-            openNotification('error', 'Thất bại', 'Đây không phải project của bạn hoặc thành viên đã tồn tại');
+            return rejectWithValue(message);
         }
     }
 )
 
-export const removeUserFromProject = createAsyncThunk(
-    'removeUserFromProject',
-    async (userProject, { dispatch, rejectWithValue }) => {
+export const removeProjectParticipantThunk = createAsyncThunk(
+    'removeProjectParticipant',
+    async (projectParticipantId, { dispatch, rejectWithValue }) => {
         try {
-            const { statusCode } = await projectApi.removeUserFromProject(userProject);
-            if (statusCode === 200) {
-                dispatch(getAllProjectThunk());
-                openNotification('success', 'Thành công', 'Xóa thành viên thành công');
-            }
+            const { statusCode } = await projectApi.removeProjectParticipant(projectParticipantId);
+            return statusCode;
         } catch ({ message }) {
-            openNotification('error', 'Thất bại', 'Xóa thất bại bạn không phải người tạo project');
+            return rejectWithValue(message);
         }
     }
 )
@@ -102,6 +96,22 @@ export const createProjectThunk = createAsyncThunk(
             }
         } catch ({ message }) {
             openNotification('error', 'Thất bại', 'Tạo project thất bại');
+        }
+    }
+)
+
+export const addProjectParticipantThunk = createAsyncThunk(
+    'addProjectParticipant',
+    async (newProjectParticipant, { dispatch, rejectWithValue }) => {
+        try {
+            const { statusCode } = await projectApi.addProjectParticipant(newProjectParticipant);
+            if (statusCode === 200) {
+                return statusCode;
+            } else {
+                return rejectWithValue("Error when add project participant");
+            }
+        } catch ({ message }) {
+            return rejectWithValue(message);
         }
     }
 )

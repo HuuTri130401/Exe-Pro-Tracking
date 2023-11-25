@@ -6,6 +6,7 @@ import { MainContainer, ChatContainer, MessageList, Message, MessageInput, Typin
 import { useDispatch, useSelector } from "react-redux";
 import { getMessagesHistoryThunk, clearMessagesHistoryThunk, sendMessageThunk } from "../../redux/thunk/aiChatBotThunk";
 import { sendMessage, clearMessagesHistory } from "../../redux/slice/aiChatBotSlice"
+import { openNotification } from "../notification/notification";
 
 const AIChatBot = () => {
     const [showChatbot, toggleChatbot] = useState(false);
@@ -27,7 +28,12 @@ const AIChatBot = () => {
 
     const handleSend = async (message) => {
         dispatch(sendMessage(message));
-        dispatch(sendMessageThunk(message));
+        dispatch(sendMessageThunk(message))
+            .then((response) => {
+                if (response.type == sendMessageThunk.rejected) {
+                    openNotification('error', 'Send message failed', response.error.message);
+                }
+            });
     };
 
     return (

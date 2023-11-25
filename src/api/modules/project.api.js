@@ -1,27 +1,29 @@
 import { privateClient } from "../clients/private.client";
-import { publicClient } from "../clients/public.client";
 
 const projectApi = {
-    getAllProject:(createdBy)=>{
+    getAllProject: (createdBy) => {
         return privateClient.get(`/Projects/GetAllOData?createdBy=${createdBy}`);
     },
-    getProjectDetail:(projectId)=>{
+    getProjectDetail: (projectId) => {
         return privateClient.get(`/Projects/GetProjectByIdWithTodoAndParticipant?id=${projectId}`);
     },
-    assignUserProject:(userProject)=>{
-        return privateClient.post('Project/assignUserProject',userProject);
+    getProjectParticipants: (projectId) => {
+        return privateClient.get(`/ProjectParticipants/GetAllOData?ProjectId=${projectId}`);
     },
-    removeUserFromProject:(userProject)=>{
-        return privateClient.post('Project/removeUserFromProject',userProject);
+    removeProjectParticipant: (projectParticipantId) => {
+        return privateClient.delete(`/ProjectParticipants/Delete/${projectParticipantId}`);
     },
-    deleteProject:(projectId)=>{
+    addProjectParticipant: (newProjectParticipant) => {
+        return privateClient.post('/ProjectParticipants/Post', newProjectParticipant);
+    },
+    deleteProject: (projectId) => {
         return privateClient.delete(`Projects/Delete/${projectId}`);
     },
-    updateProject:(project)=>{
-        return privateClient.put('/Projects/Update',project);
+    updateProject: (project) => {
+        return privateClient.put('/Projects/Update', project);
     },
-    createProject:(newProject)=>{
-        return privateClient.post('/Projects/Post',newProject);
+    createProject: (newProject) => {
+        return privateClient.post('/Projects/Post', newProject);
     }
 }
 

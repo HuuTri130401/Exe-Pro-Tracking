@@ -1,17 +1,17 @@
 import parser from "html-react-parser";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import DragDrop from "../../components/drag-drop/DragDrop";
-import Filter from "../../components/filter/Filter";
 import { Button } from "antd";
 import { openDrawer } from "../../redux/slice/drawerSlice";
 import { getProjectDetailThunk } from "../../redux/thunk/projectThunk";
-import { isEmpty } from "lodash";
 import TaskModal from "../../components/modal/TaskModal";
+import UserManagement from "../../components/breadcrumb/UserManagement";
 
 const Board = (props) => {
   const param = useParams();
+  const [isOpenUserManagement, setIsOpenUserManagement] = useState(false);
   const { projectDetail } = useSelector((state) => state.projectSlice);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,15 +24,14 @@ const Board = (props) => {
         <h6 className="mb-3">
           Project name: {projectDetail?.projectById?.title}
         </h6>
-        {/* <section className="mb-3">
-          <span>Description: {projectDetail?.projectById?.description}</span>
-        </section> */}
         <section className='mb-3'>
-             <span>{parser(`${projectDetail?.projectById?.description}`)}</span>
-         </section>
+          <span>{parser(`${projectDetail?.projectById?.description}`)}</span>
+        </section>
       </div>
-      {/* <Filter projectDetail={projectDetail} /> */}
-      <Button type="primary" onClick={() => dispatch(openDrawer(true))}> Create Task </Button>
+
+      <Button type="default" onClick={() => dispatch(openDrawer(true))} style={{ marginRight: "10px" }}> Create Task </Button>
+      <Button type="default" onClick={() => setIsOpenUserManagement(true)}> User Management </Button>
+      <UserManagement isOpenUserManagement={isOpenUserManagement} setIsOpenUserManagement={setIsOpenUserManagement} />
       <DragDrop projectDetail={projectDetail} />
       <TaskModal />
     </div>

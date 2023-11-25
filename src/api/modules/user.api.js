@@ -11,6 +11,9 @@ const userApi = {
     getAllUser:()=>{
         return privateClient.get('/Customer/GetAll');
     },
+    getUserByEmail:(email)=>{
+        return privateClient.get(`/Customer/GetByEmail?email=${email}`);
+    }
 }
 
 export default userApi;

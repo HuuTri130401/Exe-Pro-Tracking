@@ -50,3 +50,19 @@ export const getAllUserThunk = createAsyncThunk(
         }
     }
 )
+
+export const getUserByEmailThunk = createAsyncThunk(
+    'getUserByEmail',
+    async (email, { dispatch, rejectWithValue }) => {
+        try {
+            const payload = await userApi.getUserByEmail(email);
+            if (payload.statusCode === 200) {
+                return payload.accountTypeById.result;
+            } else {
+                return rejectWithValue(payload.message);
+            }
+        } catch ({ message }) {
+            return rejectWithValue(message);
+        }
+    }
+)
