@@ -46,7 +46,7 @@ const ProjectManagement = () => {
 
     const column = [
         {
-            title: 'Id',
+            title: 'No.',
             key: 'index',
             render: (text, record, index) => <span>{index + 1}</span>
         },
@@ -173,9 +173,14 @@ const ProjectManagement = () => {
                     <span>
                         <Popconfirm
                             title="Are you sure to delete this project?"
+                            // onConfirm={() => {
+                            //     dispatch(deleteProjectThunk(record.id))
+                            // }}
                             onConfirm={() => {
-                                dispatch(deleteProjectThunk(record.id))
-                            }}
+                                if (record.createdBy) {
+                                   dispatch(deleteProjectThunk(record.id));
+                                }
+                             }}
                             okText="Yes"
                             cancelText="No"
                         >
