@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react"
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, ConversationHeader, Avatar } from '@chatscope/chat-ui-kit-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, ConversationHeader, Avatar, Button } from '@chatscope/chat-ui-kit-react';
 import { useDispatch, useSelector } from "react-redux";
 import { getMessagesHistoryThunk, clearMessagesHistoryThunk, sendMessageThunk } from "../../redux/thunk/aiChatBotThunk";
 import { sendMessage, clearMessagesHistory } from "../../redux/slice/aiChatBotSlice"
+import { openNotification } from "../notification/notification";
 
 const AIChatBot = () => {
     const [showChatbot, toggleChatbot] = useState(false);
@@ -18,18 +21,20 @@ const AIChatBot = () => {
         toggleChatbot(!showChatbot);
     };
 
-    const handleSend = async (message) => {
-        if (message === "!clear") {
-            dispatch(clearMessagesHistory());
-            dispatch(clearMessagesHistoryThunk());
-        } else {
-            dispatch(sendMessage(message));
-            dispatch(sendMessageThunk(message));
-        }
+    const handleClearMessages = () => {
+        dispatch(clearMessagesHistory());
+        dispatch(clearMessagesHistoryThunk());
     };
 
-    const textFontSize = "10px";
-    const aiIconUrl = "https://cdn4.iconfinder.com/data/icons/artificial-intelligence-166/24/bot_text_chatbot_chat_assistant_ai_operator_1-512.png";
+    const handleSend = async (message) => {
+        dispatch(sendMessage(message));
+        dispatch(sendMessageThunk(message))
+            .then((response) => {
+                if (response.type == sendMessageThunk.rejected) {
+                    openNotification('error', 'Send message failed', response.error.message);
+                }
+            });
+    };
 
     return (
         <div>
@@ -43,34 +48,55 @@ const AIChatBot = () => {
                     <MainContainer>
                         <ChatContainer>
                             <ConversationHeader>
-                                <Avatar src={aiIconUrl} name="AI" />
-                                <ConversationHeader.Content userName="AI Chat bot" />
+                                <ConversationHeader.Content userName="Pixel Chat Bot" />
                             </ConversationHeader>
                             <MessageList
-                                typingIndicator={loading ? <TypingIndicator content="AI Chatbot is typing..." /> : null}
+                                typingIndicator={loading ? <TypingIndicator content="Pixel is typing..." /> : null}
                             >
                                 {messages.map((message, index) => {
                                     return <div className="appChatbotMessage">
                                         <Message key={index} model={message}>
                                             {message.sender === "AI" &&
-                                                <Avatar src={aiIconUrl} name="AI" style={{}} />}
+                                                <Avatar src="./img/chat_bot_icon.svg" name="AI" style={{ scale: "2" }} />}
                                         </Message>
                                     </div>
                                 })}
                             </MessageList>
-                            <MessageInput
-                                style={{ width: "400px", fontSize: "19px" }}
-                                placeholder="Type message here"
-                                onSend={handleSend}
-                                sendDisabled={loading}
-                                sendOnReturnDisabled={loading}
-                                autoFocus={true}
-                                attachButton={false}
-                            />
-                            {/* </div> */}
-                        </ChatContainer>
-                    </MainContainer>
-                </div>
+                            <div as="MessageInput">
+                                <div as={MessageInput} style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    borderTop: "1px dashed #d1dbe4"
+                                }}>
+                                    <Button
+                                        icon={<FontAwesomeIcon icon={faTrash} />}
+                                        onClick={handleClearMessages}
+                                        disabled={loading}
+                                        labelPosition="left"
+                                        style={{ fontSize: "19px", margin: "5px 5px" }}
+                                    />
+                                    <MessageInput
+                                        style={{
+                                            marginLeft: "-20px",
+                                            fontSize: "19px",
+                                            flexGrow: 1,
+                                            borderTop: 0,
+                                            flexShrink: "initial"
+                                        }}
+                                        placeholder="Type message here"
+                                        onSend={handleSend}
+                                        sendDisabled={loading}
+                                        sendOnReturnDisabled={loading}
+                                        autoFocus={true}
+                                        attachButton={false}
+                                        attachDisabled={loading}
+                                        onAttachClick={handleClearMessages}
+                                    />
+                                </div>
+                            </div>
+                        </ChatContainer >
+                    </MainContainer >
+                </div >
             }
         </div >
     )
