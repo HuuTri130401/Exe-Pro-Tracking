@@ -7,7 +7,7 @@ import { Button } from "antd";
 import { openDrawer } from "../../redux/slice/drawerSlice";
 import { getProjectDetailThunk } from "../../redux/thunk/projectThunk";
 import TaskModal from "../../components/modal/TaskModal";
-import UserManagement from "../../components/breadcrumb/UserManagement";
+import UserManagement from "../../components/board/UserManagement";
 
 const Board = (props) => {
   const param = useParams();
