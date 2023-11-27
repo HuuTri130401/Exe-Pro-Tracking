@@ -6,7 +6,6 @@ import { MdOutlineDelete } from "react-icons/md";
 import { getProjectParticipantsThunk, removeProjectParticipantThunk, addProjectParticipantThunk } from "../../redux/thunk/projectThunk";
 import { getUserByEmailThunk } from "../../redux/thunk/userThunk";
 import { openNotification } from "../notification/notification";
-import { add, set } from "lodash";
 
 const UserManagement = ({ isOpenUserManagement, setIsOpenUserManagement }) => {
     const dispatch = useDispatch();

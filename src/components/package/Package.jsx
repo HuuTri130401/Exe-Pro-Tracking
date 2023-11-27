@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { Button, Modal, Descriptions } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getPaymentTypesThunk } from "../../redux/thunk/paymentThunk";
-import { postTransactionThunk } from "../../redux/thunk/transactionThunk";
+import { postTransactionThunk, getTransactionsByUserIdThunk } from "../../redux/thunk/transactionThunk";
 import { userLocalStorage } from "../../utils/config";
 import { openNotification } from "../../components/notification/notification";
-import { openModal, closeModal } from "../../redux/slice/paymentSlice";
 import { accountTypeMap } from "../../utils/config";
-import { set } from "lodash";
 
 const Package = ({ features, price, accountType }) => {
     const dispatch = useDispatch();
@@ -49,6 +47,7 @@ const Package = ({ features, price, accountType }) => {
                     openNotification("error", "Submit transaction failed", response.error.message);
                 }
                 if (response.type == postTransactionThunk.fulfilled) {
+                    dispatch(getTransactionsByUserIdThunk(userInfo.id));
                     openNotification("success", "Submit transaction successfully", "Transaction is being processed");
                 }
             });
