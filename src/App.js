@@ -24,6 +24,7 @@ function App() {
   const isUser = user?.customer?.role === 0;
 
   return (
+    console.log(userLocalStorage.get()),
     <>
       <Loading />
       <Routes>

@@ -6,11 +6,12 @@ import { closeDrawer, closeModal } from "../slice/drawerSlice";
 
 export const getTaskDetailThunk = createAsyncThunk(
     'getTaskDetail',
-    async (taskId, { dispatch, rejectWithValue }) => {
+    async (projectId, { dispatch, rejectWithValue }) => {
         try {
-            const { statusCode, content } = await taskApi.getTaskDetail(taskId);
+            const { statusCode, listTodoByProjectId } = await taskApi.getTaskDetail(projectId);
             if (statusCode === 200) {
-                return content;
+                console.log('getTaskDetail******** ' + listTodoByProjectId);
+                return listTodoByProjectId;
             }
         } catch ({ message }) {
             return rejectWithValue(message);
@@ -18,6 +19,20 @@ export const getTaskDetailThunk = createAsyncThunk(
     }
 )
 
+export const getTaskDetailModalThunk = createAsyncThunk(
+    'getTaskDetailModal',
+    async ({projectId, todoId}, { rejectWithValue }) => {
+        try {
+            const { statusCode, listTodoFilter } = await taskApi.getTaskModal({projectId, todoId});
+            if (statusCode === 200) {
+                console.log('listTodoFilter getTaskDetailModalThunk******** ' + JSON.stringify(listTodoFilter));
+                return listTodoFilter;
+            }
+        } catch ({ message }) {
+            return rejectWithValue(message);
+        }
+    }
+)
 
 export const updateStatusTaskThunk = createAsyncThunk(
     'updateStatusTask',
@@ -46,11 +61,11 @@ export const updateTaskThunk = createAsyncThunk(
             if (statusCode === 200) {
                 dispatch(getProjectDetailThunk(content.projectId))
                 dispatch(getTaskDetailThunk(content.taskId))
-                openNotification('success', 'Thông báo', 'Cập nhật thành công');
+                openNotification('success', 'Success', 'Update Task Success!');
                 return content;
             }
         } catch (error) {
-            openNotification('error', 'Thông báo', 'Cập nhật thất bại dữ liệu nhập sai hoặc đây không phải project của bạn');
+            openNotification('error', 'Error', 'Update Task Error');
             return rejectWithValue(error.message);
         }
     }

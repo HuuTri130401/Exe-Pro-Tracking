@@ -24,7 +24,7 @@ const Comment = ({ taskId }) => {
   return (
     <>
       <div className="d-flex flex-wrap align-items-center">
-        <Avatar src={avatar ? avatar : ''} className='me-2' size={40} />
+        <Avatar src={'./img/profile.png' || avatar ? avatar : ''} className='me-2' size={40} />
         <InputForm placeholder='Comment here...' className='w-50' inputRef={inputRef} />
         <Button type='primary' className='ms-2' onClick={() => {
           if (inputRef.current.value !== '') {
