@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, memo } from "react"
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMessagesHistoryThunk, clearMessagesHistoryThunk, sendMessageThunk } from "../../redux/thunk/aiChatBotThunk";
 import { sendMessage, clearMessagesHistory } from "../../redux/slice/aiChatBotSlice"
 import { openNotification } from "../notification/notification";
+import { IMAGE_BASE_PATH } from "../../utils/config";
 
 const AIChatBot = () => {
     const [showChatbot, toggleChatbot] = useState(false);
@@ -57,7 +58,7 @@ const AIChatBot = () => {
                                     return <div className="appChatbotMessage">
                                         <Message key={index} model={message}>
                                             {message.sender === "AI" &&
-                                                <Avatar src="./img/chat_bot_icon.svg" name="AI" style={{ scale: "2" }} />}
+                                                <Avatar src={IMAGE_BASE_PATH + "chat_bot_icon.svg"} name="AI" style={{ scale: "2" }} />}
                                         </Message>
                                     </div>
                                 })}
@@ -102,4 +103,4 @@ const AIChatBot = () => {
     )
 }
 
-export default AIChatBot;
+export default memo(AIChatBot);

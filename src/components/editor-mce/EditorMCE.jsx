@@ -3,10 +3,12 @@ import React, { memo, useEffect, useState } from 'react';
 
 function EditorMCE({ description, editorRef, name }) {
     const [content, setContent] = useState('');
+
     useEffect(() => {
         if (description) setContent(description)
         return () => setContent('')
     }, [description])
+    
     return (
         <>
             <Editor

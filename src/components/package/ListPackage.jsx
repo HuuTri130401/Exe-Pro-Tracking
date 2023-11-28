@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo } from "react";
 import Modal from "antd";
 import Package from "./Package";
 
@@ -28,4 +28,4 @@ const ListPackage = () => {
 	);
 };
 
-export default ListPackage;
+export default memo(ListPackage);

@@ -8,12 +8,7 @@ export const TOKEN_CYBERSOFT =
 
 export const USER_LOGIN = "USER_LOGIN";
 
-export const colorPriority = [
-  { id: 1, color: "red" },
-  { id: 2, color: "yellow" },
-  { id: 3, color: "green" },
-  { id: 4, color: "gray" },
-];
+export const IMAGE_BASE_PATH = window.location.protocol + "//" + window.location.host + "/img/";
 
 export const STATUS_CODE = {
   SUCCESS: 200,
@@ -21,6 +16,32 @@ export const STATUS_CODE = {
   UNAUTHORIZED: 401,
   NOTFOUND: 404,
   SERVER: 500,
+};
+
+export const priorityLabels = {
+  1: 'Very Low',
+  2: 'Low',
+  3: 'Medium',
+  4: 'High',
+  5: 'Critical',
+  'Very Low': 1,
+  'Low': 2,
+  'Medium': 3,
+  'High': 4,
+  'Critical': 5
+};
+
+export const colorPriority = {
+  1: 'green',
+  2: 'cyan',
+  3: 'blue',
+  4: 'orange',
+  5: 'red',
+  'green': 1,
+  'cyan': 2,
+  'blue': 3,
+  'orange': 4,
+  'red': 5
 };
 
 export const accountTypeMap = {

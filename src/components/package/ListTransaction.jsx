@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, memo } from "react";
 import { Table, Tag } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getTransactionsByUserIdThunk } from "../../redux/thunk/transactionThunk";
@@ -71,4 +71,4 @@ const ListTransaction = () => {
     );
 }
 
-export default ListTransaction;
+export default memo(ListTransaction);

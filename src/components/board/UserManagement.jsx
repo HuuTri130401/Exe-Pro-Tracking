@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useEffect, useState } from "react";
 import { Popconfirm, Drawer, Table, Button, Modal, Form, Input } from "antd";
 import { useSelector, useDispatch } from "react-redux";
@@ -218,4 +218,4 @@ const UserManagement = ({ isOpenUserManagement, setIsOpenUserManagement }) => {
     )
 };
 
-export default UserManagement;
+export default memo(UserManagement);

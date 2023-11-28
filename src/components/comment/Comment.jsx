@@ -2,7 +2,7 @@ import { Avatar, Button } from 'antd';
 import React, { memo, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCommentThunk, insertCommentThunk } from '../../redux/thunk/commentThunk';
-import { userLocalStorage } from '../../utils/config';
+import { userLocalStorage, IMAGE_BASE_PATH } from '../../utils/config';
 import InputForm from '../input/InputForm';
 import CommentItem from './CommentItem';
 
@@ -24,7 +24,7 @@ const Comment = ({ taskId }) => {
   return (
     <>
       <div className="d-flex flex-wrap align-items-center">
-        <Avatar src={'./img/profile.png' || avatar ? avatar : ''} className='me-2' size={40} />
+        <Avatar src={IMAGE_BASE_PATH + "profile.png" || avatar ? avatar : ''} className='me-2' size={40} />
         <InputForm placeholder='Comment here...' className='w-50' inputRef={inputRef} />
         <Button type='primary' className='ms-2' onClick={() => {
           if (inputRef.current.value !== '') {

@@ -8,6 +8,7 @@ import commentSlice from "./slice/commentSlice";
 import paymentSlice from "./slice/paymentSlice";
 import transactionSlice from "./slice/transactionSlice";
 import aiChatBotSlice from "./slice/aiChatBotSlice";
+import labelSlice from "./slice/labelSlice";
 
 export const store = configureStore({
     reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
         paymentSlice,
         transactionSlice,
         aiChatBotSlice,
+        labelSlice
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

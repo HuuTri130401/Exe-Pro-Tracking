@@ -6,7 +6,7 @@ import DragDrop from "../../components/drag-drop/DragDrop";
 import { Button } from "antd";
 import { openDrawer } from "../../redux/slice/drawerSlice";
 import { getProjectDetailThunk } from "../../redux/thunk/projectThunk";
-import TaskModal from "../../components/modal/TaskModal";
+import TaskModal from "../../components/task/TaskModal";
 import UserManagement from "../../components/board/UserManagement";
 
 const Board = (props) => {

@@ -7,6 +7,7 @@ import { logout } from "../../redux/slice/userSlice";
 import { useSelector } from "react-redux";
 import { isEmpty } from "lodash";
 import { Link } from "react-router-dom";
+import { IMAGE_BASE_PATH } from "../../utils/config";
 
 function Sidebar() {
   const [visible, setVisible] = useState(false);
@@ -25,7 +26,7 @@ function Sidebar() {
     <div className="sidebar">
       <div className="sidebar-logo">
         <Link to={"/projects"}>
-          <img src="./img/favicon.png" alt="" />
+          <img src={IMAGE_BASE_PATH + "favicon.png"} alt="" />
         </Link>
       </div>
       <div className="sidebar__item mb-3">
