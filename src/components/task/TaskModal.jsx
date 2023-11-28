@@ -121,6 +121,8 @@ const TaskModal = () => {
 
               <p>Assignees</p>
               <Select
+                showSearch
+                filterOption={(input, option) => option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 name='assignees'
                 className='w-100'
                 defaultValue={projectDetail?.projectById?.participants?.find((member) => member.customerId === taskDetail?.assignee)?.email}
