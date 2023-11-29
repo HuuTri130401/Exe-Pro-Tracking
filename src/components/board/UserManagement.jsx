@@ -3,7 +3,12 @@ import { useEffect, useState } from "react";
 import { Popconfirm, Drawer, Table, Button, Modal, Form, Input } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { MdOutlineDelete } from "react-icons/md";
-import { getProjectParticipantsThunk, removeProjectParticipantThunk, addProjectParticipantThunk } from "../../redux/thunk/projectThunk";
+import {
+    getProjectParticipantsThunk,
+    removeProjectParticipantThunk,
+    addProjectParticipantThunk,
+    getProjectDetailThunk
+} from "../../redux/thunk/projectThunk";
 import { getUserByEmailThunk } from "../../redux/thunk/userThunk";
 import { openNotification } from "../notification/notification";
 
@@ -33,6 +38,11 @@ const UserManagement = ({ isOpenUserManagement, setIsOpenUserManagement }) => {
     useEffect(() => {
         getProjectParticipants();
     }, [dispatch, isOpenUserManagement]);
+
+    const postSuccessChange = () => {
+        getProjectParticipants();
+        dispatch(getProjectDetailThunk(projectDetail?.projectById?.id));
+    };
 
     // Add project participant
     const handleCloseAddProjectParticipant = () => {
@@ -80,7 +90,7 @@ const UserManagement = ({ isOpenUserManagement, setIsOpenUserManagement }) => {
                             handleCloseAddProjectParticipant();
                             if (response.type == addProjectParticipantThunk.fulfilled) {
                                 openNotification('success', 'Add participant success', response.message);
-                                getProjectParticipants();
+                                postSuccessChange();
                             }
                             if (response.type == addProjectParticipantThunk.rejected) {
                                 openNotification('error', 'Add participant failed', response.error.message);
@@ -97,7 +107,7 @@ const UserManagement = ({ isOpenUserManagement, setIsOpenUserManagement }) => {
             .then((response) => {
                 if (response.type == removeProjectParticipantThunk.fulfilled) {
                     openNotification('success', 'Remove participant success', response.message);
-                    getProjectParticipants();
+                    postSuccessChange();
                 }
                 if (response.type == removeProjectParticipantThunk.rejected) {
                     openNotification('error', 'Remove participant failed', response.error.message);

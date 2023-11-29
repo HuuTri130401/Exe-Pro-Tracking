@@ -27,12 +27,12 @@ export const updateStatusTaskThunk = createAsyncThunk(
             const { statusCode, content } = await taskApi.updateStatus({ taskId, statusId });
             // Gọi API cập nhật trạng thái với taskId và statusId
             if (statusCode === 200) {
-                openNotification('success', 'Thông báo', 'Thao tác thành công');
+                openNotification('success', 'Successful', 'Update status successfully');
                 dispatch(getProjectDetailThunk(projectId))
                 return content;
             }
         } catch ({ message }) {
-            openNotification('error', 'Thông báo', message);
+            openNotification('error', 'Error', message);
             return rejectWithValue(message);
         }
     }
@@ -63,10 +63,10 @@ export const assignUserTaskThunk = createAsyncThunk(
             if (statusCode === 200) {
                 dispatch(getProjectDetailThunk(projectId))
                 dispatch(getTaskDetailThunk(taskId))
-                openNotification('success', 'Thông báo', content);
+                openNotification('success', 'Successful', 'Assign user successfully');
             }
         } catch ({ message }) {
-            openNotification('error', 'Thông báo', 'Cập nhật thất bại');
+            openNotification('error', 'Error', 'Assign user failed');
             return rejectWithValue(message);
         }
     }
@@ -80,11 +80,11 @@ export const createTaskTaskThunk = createAsyncThunk(
             if (statusCode === 201) {
                 dispatch(closeDrawer());
                 dispatch(getProjectDetailThunk(newTodo.projectId));
-                openNotification('success', 'Thông báo', 'Tạo task thành công');
+                openNotification('success', 'Successful', 'Create task successfully');
                 return newTodo;
             }
         } catch ({ message }) {
-            openNotification('error', 'Thông báo', 'Tạo task không thành công!');
+            openNotification('error', 'Error', 'Create task failed');
             return rejectWithValue(message);
         }
     }
@@ -92,17 +92,15 @@ export const createTaskTaskThunk = createAsyncThunk(
 
 export const removeTaskThunk = createAsyncThunk(
     'removeTask',
-    async ({ taskId, projectId }, { dispatch, rejectWithValue }) => {
+    async (taskId, { dispatch, rejectWithValue }) => {
         try {
             const { statusCode, content } = await taskApi.removeTask(taskId);
             if (statusCode === 200) {
-                openNotification('success', 'Thông báo', 'Xóa task thành công');
-                dispatch(closeModal());
-                dispatch(getProjectDetailThunk(projectId))
                 return content;
+            } else {
+                return rejectWithValue(content);
             }
         } catch ({ message }) {
-            openNotification('error', 'Thông báo', 'Bạn không có quyền xóa task');
             return rejectWithValue(message);
         }
     }

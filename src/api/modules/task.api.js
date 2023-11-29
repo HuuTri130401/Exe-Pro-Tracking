@@ -17,7 +17,7 @@ const taskApi = {
         return privateClient.post(`Todos/Post`, newTask);
     },
     removeTask:(taskId)=>{
-        return privateClient.delete(`/Todos/Delete=${taskId}`);
+        return privateClient.delete(`/Todos/Delete/${taskId}`);
     }
 }
 

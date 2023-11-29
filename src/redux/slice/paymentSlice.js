@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getPaymentTypesThunk } from '../thunk/paymentThunk';
-import { openNotification } from '../../components/notification/notification';
 
 const initialState = {
     paymentTypes: [],

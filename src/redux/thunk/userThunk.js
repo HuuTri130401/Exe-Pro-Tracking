@@ -11,11 +11,11 @@ export const loginThunk = createAsyncThunk(
             if (statusCode === 200) {
                 userLocalStorage.set(content);
                 localStorage.setItem('TOKEN', content.accessToken)
-                openNotification('success', 'Đăng nhập thành công', message)
+                openNotification('success', 'Login Successful', message)
                 return content;
             }
         } catch ({ statusCode, message }) {
-            openNotification('error', 'Đăng nhập thất bại', message)
+            openNotification('error', 'Login Failed', message)
             return rejectWithValue(message);
         }
     }
@@ -27,11 +27,11 @@ export const registerThunk = createAsyncThunk(
         try {
             const { statusCode, content, message } = await userApi.register(newUser);
             if (statusCode === 201) {
-                openNotification('success', 'Đăng ký thành công', message)
+                openNotification('success', 'Register Successful', message)
             }
             return content;
         } catch ({ statusCode, message }) {
-            openNotification('error', 'Đăng ký thất bại', message)
+            openNotification('error', 'Register Failed', message)
             return rejectWithValue(message);
         }
     }

@@ -1,15 +1,15 @@
 import React, { memo, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-import { DatePicker, Modal, Select } from 'antd';
+import { DatePicker, Modal, Select, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../redux/slice/drawerSlice';
 import { updateTask, updateOriginalTaskDetail } from '../../redux/slice/taskSlice';
-import { updateTaskThunk } from '../../redux/thunk/taskThunk';
+import { updateTaskThunk, removeTaskThunk } from '../../redux/thunk/taskThunk';
 import { getProjectDetailThunk } from '../../redux/thunk/projectThunk';
 import TaskTitle from './TaskTitle';
 import TaskDescription from './TaskDescription';
 import { openNotification } from '../notification/notification';
-import { priorityLabels } from '../../utils/config';
+import { priorityLabels, userLocalStorage } from '../../utils/config';
 import { updateLabels } from '../../redux/slice/labelSlice';
 
 const TaskModal = () => {
@@ -35,12 +35,14 @@ const TaskModal = () => {
   const { projectDetail } = useSelector(state => state.projectSlice);
   const { taskDetail, originalTaskDetail } = useSelector(state => state.taskSlice);
   const { isOpenModal } = useSelector(state => state.drawerSlice);
+  const { currentUser } = userLocalStorage.get();
 
   const dispatch = useDispatch();
 
   const closeModalAndReset = () => {
     dispatch(updateLabels({}));
     dispatch(updateTask({}))
+    dispatch(getProjectDetailThunk(taskDetail?.projectId));
     dispatch(closeModal());
   };
 
@@ -61,7 +63,7 @@ const TaskModal = () => {
       dispatch(updateTaskThunk(taskDetail))
         .then((response) => {
           if (response.type == updateTaskThunk.fulfilled) {
-            openNotification('success', 'Success', 'Update task successfully');
+            openNotification('success', 'Successful', 'Update task successfully');
             postSuccessChange();
           }
           if (response.type == updateTaskThunk.rejected) {
@@ -71,6 +73,27 @@ const TaskModal = () => {
     }
   };
 
+  const handleDelete = () => {
+    Modal.confirm({
+      title: 'Are you sure delete this task?',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk: () => {
+        dispatch(removeTaskThunk(taskDetail?.id))
+          .then((response) => {
+            if (response.type == removeTaskThunk.fulfilled) {
+              openNotification('success', 'Successful', 'Delete task successfully');
+              closeModalAndReset();
+            }
+            if (response.type == removeTaskThunk.rejected) {
+              openNotification('error', 'Error', response.payload);
+            }
+          });
+      },
+    });
+  };
+
   return (
     <Modal
       title="Task Detail"
@@ -78,10 +101,25 @@ const TaskModal = () => {
       destroyOnClose={true}
       open={isOpenModal}
       closable={false}
-      onOk={handleChange}
-      okText={"Save"}
       onCancel={closeModalAndReset}
       width={1200}
+      footer={[
+        <Button
+          key="Delete"
+          type="primary"
+          danger
+          onClick={handleDelete}
+          disabled={userLocalStorage.get()?.customer?.id !== projectDetail?.projectById?.createdBy}
+          style={{ float: 'left' }}>
+          Delete
+        </Button>,
+        <Button key="Cancel" onClick={closeModalAndReset}>
+          Cancel
+        </Button>,
+        <Button key="Save" type="primary" onClick={handleChange}>
+          Save
+        </Button>,
+      ]}
     >
       <div className="task">
         <div className="container-fluid mt-3">

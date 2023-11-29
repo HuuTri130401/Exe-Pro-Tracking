@@ -53,7 +53,7 @@ const userSlice = createSlice({
             state.loadingUser = false;
         });
         builder.addCase(getAllUserThunk.rejected, (state, { payload }) => {
-            openNotification('error', 'Lấy danh sách người dùng thất bại', payload)
+            openNotification('error', 'Get Users Failed', payload)
             state.error = payload;
             state.loadingUser = false;
         });

@@ -34,11 +34,11 @@ const AdminTransaction = () => {
         dispatch(updateTransactionThunk({ id: id, isBanking: !isBanking }))
             .then((response) => {
                 if (response.type == updateTransactionThunk.fulfilled) {
-                    openNotification('success', 'Cập nhật Thành công', response.message);
+                    openNotification('success', 'Update Successful', response.message);
                     dispatch(updateTransactionBakingStatus({ id, isBanking: !isBanking }));
                 }
                 if (response.type == updateTransactionThunk.rejected) {
-                    openNotification('error', 'Cập nhật Thất bại', response.error.message);
+                    openNotification('error', 'Update Fail', response.error.message);
                 }
             });
     };

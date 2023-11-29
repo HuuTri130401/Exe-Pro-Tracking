@@ -11,7 +11,7 @@ export const getAllProjectThunk = createAsyncThunk(
             const { statusCode, content } = await projectApi.getAllProject(creatorId);
             if (statusCode === 200) return content;
         } catch ({ message }) {
-            openNotification('error', 'Thất bại', message);
+            openNotification('error', 'Get Projects Failed', message);
         }
     }
 )
@@ -23,7 +23,7 @@ export const getProjectDetailThunk = createAsyncThunk(
             const { statusCode, content } = await projectApi.getProjectDetail(projectId);
             if (statusCode === 200) return content;
         } catch ({ message }) {
-            openNotification('error', 'Thất bại', 'Lấy project thất bại');
+            openNotification('error', 'Get Project Detail Failed', message);
         }
     }
 )
@@ -61,10 +61,10 @@ export const updateProjectThunk = createAsyncThunk(
             if (statusCode === 200) {
                 dispatch(closeDrawer())
                 dispatch(getAllProjectThunk(customerInfor.customer.id));
-                openNotification('success', 'Thành công', 'Cập nhật project thành công');
+                openNotification('success', 'Successful', 'Update project successful');
             }
         } catch ({ message }) {
-            openNotification('error', 'Thất bại', 'Cập nhật project thất bại');
+            openNotification('error', 'Error', 'Update project failed');
             return rejectWithValue(message);
         }
     }
@@ -77,10 +77,10 @@ export const deleteProjectThunk = createAsyncThunk(
             const { statusCode } = await projectApi.deleteProject(projectId);
             if (statusCode === 200) {
                 dispatch(getAllProjectThunk());
-                openNotification('success', 'Thành công', 'Xóa project thành công');
+                openNotification('success', 'Successful', 'Delete project successful');
             }
         } catch ({ message }) {
-            openNotification('error', 'Thất bại', 'Xóa project thất bại');
+            openNotification('Error', 'Error', 'Delete project failed');
         }
     }
 )
@@ -91,11 +91,11 @@ export const createProjectThunk = createAsyncThunk(
         try {
             const { statusCode, content } = await projectApi.createProject(newProject);
             if (statusCode === 201) {
-                openNotification('success','Thông báo','Tạo project thành công')
+                openNotification('success','Successful','Create project successful')
                 return content
             }
         } catch ({ message }) {
-            openNotification('error', 'Thất bại', 'Tạo project thất bại');
+            openNotification('error', 'Failed', 'Create project failed');
         }
     }
 )

@@ -36,7 +36,7 @@ const transactionSlice = createSlice({
             state.loadingTransaction = false;
         });
         builder.addCase(getAllTransactionThunk.rejected, (state, { payload }) => {
-            openNotification('error', 'Lấy danh sách giao dịch thất bại', payload)
+            openNotification('error', 'Get Transactions Failed', payload)
             state.error = payload;
             state.loadingTransaction = false;
         });
@@ -56,7 +56,7 @@ const transactionSlice = createSlice({
             state.loadingTransaction = false;
         })
         builder.addCase(getTransactionsByUserIdThunk.rejected, (state, { payload }) => {
-            openNotification('error', 'Lấy danh sách giao dịch thất bại', payload)
+            openNotification('error', 'Get Transactions Failed', payload)
             state.error = payload;
             state.loadingTransaction = false;
         })
