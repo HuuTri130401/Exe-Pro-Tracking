@@ -17,7 +17,7 @@ export const getLabelsOfProject = createAsyncThunk(
     }
 )
 
-export const addNewLabelThunk = createAsyncThunk(
+export const addNewLabelToProjectThunk = createAsyncThunk(
     'addNewLabelToProject',
     async (newLabel, { rejectWithValue }) => {
         try {

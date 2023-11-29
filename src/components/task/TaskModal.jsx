@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { DatePicker, Modal, Select, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +10,10 @@ import TaskTitle from './TaskTitle';
 import TaskDescription from './TaskDescription';
 import { openNotification } from '../notification/notification';
 import { priorityLabels, userLocalStorage } from '../../utils/config';
+import { addNewLabelToProjectThunk, getLabelsOfProject } from '../../redux/thunk/labelThunk';
 import { updateLabels } from '../../redux/slice/labelSlice';
+import { PlusOutlined } from '@ant-design/icons';
+import InputForm from '../input/InputForm';
 
 const TaskModal = () => {
   const taskStatusOptions = [
@@ -31,11 +34,14 @@ const TaskModal = () => {
 
   const { RangePicker } = DatePicker;
 
+  const [isAddNewLabel, setIsAddNewLabel] = useState(false);
+  const newLabelRef = useRef(null);
+
+  const { newLabelLoading } = useSelector(state => state.labelSlice);
   const { labelsMapper } = useSelector(state => state.labelSlice);
   const { projectDetail } = useSelector(state => state.projectSlice);
   const { taskDetail, originalTaskDetail } = useSelector(state => state.taskSlice);
   const { isOpenModal } = useSelector(state => state.drawerSlice);
-  const { currentUser } = userLocalStorage.get();
 
   const dispatch = useDispatch();
 
@@ -149,13 +155,53 @@ const TaskModal = () => {
               </div>
 
               <p>Labels</p>
-              <Select
-                name='labels'
-                className='w-100'
-                defaultValue={labelsMapper[taskDetail?.labelId]}
-                onChange={(value) => setTaskDetail({ ...taskDetail, labelId: parseInt(Object.keys(labelsMapper).find(key => labelsMapper[key] === value)) })}
-                options={Object.values(labelsMapper).map((label) => ({ value: label, label: label }))}
-              />
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Select
+                  showSearch
+                  filterOption={(input, option) => option.label?.toLowerCase().indexOf(input?.toLowerCase()) >= 0}
+                  name='labels'
+                  className='w-100'
+                  defaultValue={labelsMapper[taskDetail?.labelId]}
+                  onChange={(value) => setTaskDetail({ ...taskDetail, labelId: parseInt(Object.keys(labelsMapper).find(key => labelsMapper[key] === value)) })}
+                  options={Object.values(labelsMapper).map((label) => ({ value: label, label: label }))}
+                />
+                <Button type="primary" shape="square" icon={<PlusOutlined />} onClick={() => setIsAddNewLabel(true)}/>
+                <Modal
+                  title="Add new label"
+                  open={isAddNewLabel}
+                  centered
+                  confirmLoading={newLabelLoading}
+                  onOk={() => {
+                    const isExist = () => {
+                      var isExist = false;
+                      Object.values(labelsMapper).forEach((label) => {
+                        if (label?.toLowerCase() === newLabelRef.current.value.toLowerCase()) {
+                          isExist = true;
+                        }
+                      });
+                      return isExist;
+                    }
+                    if (newLabelRef.current.value === '' || isExist()) {
+                      openNotification('error', 'Error', 'Label name is empty or already exists');
+                      return;
+                    }
+                    dispatch(addNewLabelToProjectThunk({ title: newLabelRef.current.value, projectId: taskDetail?.projectId }))
+                      .then((response) => {
+                        if (response.type == addNewLabelToProjectThunk.fulfilled) {
+                          openNotification('success', 'Successful', 'Add new label successfully');
+                          dispatch(getLabelsOfProject(taskDetail?.projectId));
+                          setIsAddNewLabel(false);
+                        }
+                        if (response.type == addNewLabelToProjectThunk.rejected) {
+                          openNotification('error', 'Error', response.payload);
+                        }
+                      });
+                  }}
+                  onCancel={() => setIsAddNewLabel(false)}
+                >
+                  <InputForm name='label' value='' inputRef={newLabelRef} />
+                </Modal>
+              </div>
 
               <p>Assignees</p>
               <Select

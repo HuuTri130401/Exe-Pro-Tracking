@@ -33,7 +33,7 @@ const CreateTask = () => {
       priority: ''
     },
     validationSchema: Yup.object().shape({
-      title: Yup.string().required('Tên task không được trống'),
+      title: Yup.string().required('Title is required'),
     }),
     onSubmit: values => {
       values = {
@@ -63,7 +63,7 @@ const CreateTask = () => {
 
       <div className="col-md-6">
         <label className="form-label">Task Title</label>
-        <InputForm name='title' onChange={handleChange} value={values.title} type="text" className="form-control" />
+        <InputForm name='title' onChange={handleChange} value={values.title} type="text" />
         <span className='text-danger'>{errors.title}</span>
       </div>
 

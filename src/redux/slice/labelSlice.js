@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getLabelsOfProject, addNewLabelThunk } from "../thunk/labelThunk";
+import { getLabelsOfProject, addNewLabelToProjectThunk } from "../thunk/labelThunk";
 
 const initialState = {
     labels: [],
     labelsMapper: {},
+    newLabelLoading: false,
     loading: false,
     error: ''
 }
@@ -33,17 +34,15 @@ const labelSlice = createSlice({
             state.loading = false;
         })
 
-        builder.addCase(addNewLabelThunk.pending, (state) => {
-            state.loading = true;
+        builder.addCase(addNewLabelToProjectThunk.pending, (state) => {
+            state.newLabelLoading = true;
         })
-        builder.addCase(addNewLabelThunk.fulfilled, (state, { payload }) => {
-            state.labels.push(payload);
-            state.labelsMapper[payload.id] = payload.title;
-            state.loading = false;
+        builder.addCase(addNewLabelToProjectThunk.fulfilled, (state, { payload }) => {
+            state.newLabelLoading = false;
         })
-        builder.addCase(addNewLabelThunk.rejected, (state, { payload }) => {
+        builder.addCase(addNewLabelToProjectThunk.rejected, (state, { payload }) => {
             state.error = payload;
-            state.loading = false;
+            state.newLabelLoading = false;
         })
     }
 })
