@@ -7,8 +7,8 @@ const aiChatBotApi = {
   clearMessagesHistory: () => {
     return privateClientChatService.delete(`/messages/clear`);
   },
-  sendMessage: (message) => {
-    return privateClientChatService.get(`/messages/ask?message=${message}`);
+  sendMessage: (payload) => {
+    return privateClientChatService.post(`/messages/ask`, payload);
   },
 };
 

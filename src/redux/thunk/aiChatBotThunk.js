@@ -29,7 +29,7 @@ export const sendMessageThunk = createAsyncThunk(
     'sendMessage',
     async (message, { rejectWithValue, dispatch }) => {
         try {
-            const response = await aiChatBotApi.sendMessage(message);
+            const response = await aiChatBotApi.sendMessage({ "message": message });
             return response;
         } catch ({ message }) {
             return rejectWithValue(message);
