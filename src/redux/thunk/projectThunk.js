@@ -73,10 +73,11 @@ export const updateProjectThunk = createAsyncThunk(
 export const deleteProjectThunk = createAsyncThunk(
     'deleteProject',
     async (projectId, { dispatch, rejectWithValue }) => {
+        const customerInfor = userLocalStorage.get();
         try {
             const { statusCode } = await projectApi.deleteProject(projectId);
             if (statusCode === 200) {
-                dispatch(getAllProjectThunk());
+                dispatch(getAllProjectThunk(customerInfor.customer.id));
                 openNotification('success', 'Successfully', 'Delete project successful');
             }
         } catch ({ message }) {
