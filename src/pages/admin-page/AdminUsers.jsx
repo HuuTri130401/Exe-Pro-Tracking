@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { userLocalStorage } from "../../utils/config";
 import { getAllUserThunk } from '../../redux/thunk/userThunk'
+import { accountTypeMap } from '../../utils/config';
 
 const AdminUsers = () => {
 
@@ -44,6 +45,11 @@ const AdminUsers = () => {
             title: 'Email',
             key: 'email',
             dataIndex: 'email'
+        },
+        {
+            title: 'Account Type',
+            key: 'accountType',
+            render: (text, record, index) => accountTypeMap[record.accountTypeId]
         },
         {
             title: 'Phone',
