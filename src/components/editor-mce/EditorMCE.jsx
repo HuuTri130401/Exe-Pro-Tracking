@@ -8,12 +8,12 @@ function EditorMCE({ description, editorRef, name }) {
         if (description) setContent(description)
         return () => setContent('')
     }, [description])
-    
+
     return (
         <>
             <Editor
                 ref={editorRef}
-                apiKey='ho4916u93vf2q68ipmwki5rwpus0urlp12l823orkm245sap'
+                apiKey='jlna2slk6iq6pwlfujwlkjkbd26st78n9exjzjvtncvuxnd6'
                 name={name}
                 value={content}
                 init={{
