@@ -115,7 +115,6 @@ const TaskModal = () => {
           type="primary"
           danger
           onClick={handleDelete}
-          disabled={userLocalStorage.get()?.customer?.id !== projectDetail?.projectById?.createdBy}
           style={{ float: 'left' }}>
           Delete
         </Button>,

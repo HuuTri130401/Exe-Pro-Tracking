@@ -59,8 +59,8 @@ const projectSlice = createSlice({
         })
         builder.addCase(getProjectParticipantsThunk.fulfilled, (state, { payload }) => {
             const currentUser = userLocalStorage.get();
-
             state.projectParticipants = payload;
+            state.isProjectLeader = false;
             state.projectParticipants.forEach((participant) => {
                 if (participant.isLeader && participant.customerId === currentUser.customer.id) {
                     state.isProjectLeader = true;
