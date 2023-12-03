@@ -20,7 +20,7 @@ const CreateProject = () => {
     const { values, errors, handleChange, handleSubmit } = useFormik({
         enableReinitialize: true,
         validationSchema: Yup.object().shape({
-            title: Yup.string().required('Tên project không được trống'),
+            title: Yup.string().required('Project title is required'),
         }),
         initialValues: {
             title: '',

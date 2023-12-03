@@ -109,7 +109,7 @@ const AdminTransaction = () => {
                 <h6 className='mb-3'>Transactions Management</h6>
             </div>
             <Table
-                pagination={{ showSizeChanger: false, pageSize: 10 }}
+                pagination={{ showSizeChanger: false, pageSize: 5 }}
                 columns={column}
                 size='large' rowKey={"id"}
                 dataSource={Array.isArray(transactions) ? transactions : []}
