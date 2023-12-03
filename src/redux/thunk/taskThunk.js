@@ -27,7 +27,7 @@ export const updateStatusTaskThunk = createAsyncThunk(
             const { statusCode, content } = await taskApi.updateStatus({ taskId, statusId });
             // Gọi API cập nhật trạng thái với taskId và statusId
             if (statusCode === 200) {
-                openNotification('success', 'Successful', 'Update status successfully');
+                openNotification('success', 'Successfully', 'Update status successful');
                 dispatch(getProjectDetailThunk(projectId))
                 return content;
             }
@@ -63,7 +63,7 @@ export const assignUserTaskThunk = createAsyncThunk(
             if (statusCode === 200) {
                 dispatch(getProjectDetailThunk(projectId))
                 dispatch(getTaskDetailThunk(taskId))
-                openNotification('success', 'Successful', 'Assign user successfully');
+                openNotification('success', 'Successfully', 'Assign user successful');
             }
         } catch ({ message }) {
             openNotification('error', 'Error', 'Assign user failed');
@@ -80,11 +80,11 @@ export const createTaskTaskThunk = createAsyncThunk(
             if (statusCode === 201) {
                 dispatch(closeDrawer());
                 dispatch(getProjectDetailThunk(newTodo.projectId));
-                openNotification('success', 'Successful', 'Create task successfully');
+                openNotification('success', 'Successfully', 'Create task successful');
                 return newTodo;
             }
         } catch ({ message }) {
-            openNotification('error', 'Error', 'Create task failed');
+            openNotification('error', 'Error', 'Create task failed!');
             return rejectWithValue(message);
         }
     }

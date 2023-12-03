@@ -11,7 +11,7 @@ export const getAllProjectThunk = createAsyncThunk(
             const { statusCode, content } = await projectApi.getAllProject(creatorId);
             if (statusCode === 200) return content;
         } catch ({ message }) {
-            openNotification('error', 'Get Projects Failed', message);
+            openNotification('error', 'Get projects failed', message);
         }
     }
 )
@@ -23,7 +23,7 @@ export const getProjectDetailThunk = createAsyncThunk(
             const { statusCode, content } = await projectApi.getProjectDetail(projectId);
             if (statusCode === 200) return content;
         } catch ({ message }) {
-            openNotification('error', 'Get Project Detail Failed', message);
+            openNotification('error', 'Get project detail failed', message);
         }
     }
 )
@@ -61,7 +61,7 @@ export const updateProjectThunk = createAsyncThunk(
             if (statusCode === 200) {
                 dispatch(closeDrawer())
                 dispatch(getAllProjectThunk(customerInfor.customer.id));
-                openNotification('success', 'Successful', 'Update project successful');
+                openNotification('success', 'Successfully', 'Update project successful');
             }
         } catch ({ message }) {
             openNotification('error', 'Error', 'Update project failed');
@@ -77,7 +77,7 @@ export const deleteProjectThunk = createAsyncThunk(
             const { statusCode } = await projectApi.deleteProject(projectId);
             if (statusCode === 200) {
                 dispatch(getAllProjectThunk());
-                openNotification('success', 'Successful', 'Delete project successful');
+                openNotification('success', 'Successfully', 'Delete project successful');
             }
         } catch ({ message }) {
             openNotification('Error', 'Error', 'Delete project failed');
@@ -91,7 +91,7 @@ export const createProjectThunk = createAsyncThunk(
         try {
             const { statusCode, content } = await projectApi.createProject(newProject);
             if (statusCode === 201) {
-                openNotification('success','Successful','Create project successful')
+                openNotification('success','Successfully','Create project successful')
                 return content
             }
         } catch ({ message }) {

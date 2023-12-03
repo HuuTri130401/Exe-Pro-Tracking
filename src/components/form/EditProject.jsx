@@ -17,8 +17,8 @@ const EditProject = () => {
     const { values, errors, setFieldValue, handleChange, handleSubmit } = useFormik({
         enableReinitialize: true,
         validationSchema: Yup.object().shape({
-            title: Yup.string().required('Tên project không được trống'),
-            description: Yup.string().required('Mô tả dự án không được trống')
+            title: Yup.string().required('Project title is required'),
+            description: Yup.string().required('Description is required')
         }),
         initialValues: {
             id: projectEdit?.id,

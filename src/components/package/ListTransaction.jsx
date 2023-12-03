@@ -62,7 +62,8 @@ const ListTransaction = () => {
     return (
         <div>
             <Table
-                pagination={{ showSizeChanger: false, pageSize: 10 }}
+                pagination={{ showSizeChanger: false, pageSize: 5 }}
+                // pagination={{ showSizeChanger: false, pageSize: 10 }}
                 columns={column}
                 size='large' rowKey={"id"}
                 dataSource={Array.isArray(transactionsHistory) ? transactionsHistory : []}
