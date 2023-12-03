@@ -10,6 +10,8 @@ export const USER_LOGIN = "USER_LOGIN";
 
 export const IMAGE_BASE_PATH = window.location.protocol + "//" + window.location.host + "/img/";
 
+export const MCE_TOKEN = "jlna2slk6iq6pwlfujwlkjkbd26st78n9exjzjvtncvuxnd6";
+
 export const STATUS_CODE = {
   SUCCESS: 200,
   CREATED: 201,

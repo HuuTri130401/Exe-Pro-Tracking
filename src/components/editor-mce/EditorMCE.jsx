@@ -1,5 +1,6 @@
 import { Editor } from '@tinymce/tinymce-react';
 import React, { memo, useEffect, useState } from 'react';
+import { MCE_TOKEN } from '../../utils/config';
 
 function EditorMCE({ description, editorRef, name }) {
     const [content, setContent] = useState('');
@@ -13,7 +14,7 @@ function EditorMCE({ description, editorRef, name }) {
         <>
             <Editor
                 ref={editorRef}
-                apiKey='jlna2slk6iq6pwlfujwlkjkbd26st78n9exjzjvtncvuxnd6'
+                apiKey={MCE_TOKEN}
                 name={name}
                 value={content}
                 init={{

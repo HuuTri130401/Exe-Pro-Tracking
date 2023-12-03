@@ -1,10 +1,11 @@
 import React, { useRef, memo } from "react";
 import { Editor } from '@tinymce/tinymce-react';
+import { MCE_TOKEN } from "../../utils/config";
 
 const TaskDescription = ({ taskDetail, setTaskDetail }) => {
     return (
         <Editor
-            apiKey='ho4916u93vf2q68ipmwki5rwpus0urlp12l823orkm245sap'
+            apiKey={MCE_TOKEN}
             name={'description'}
             value={taskDetail.description}
             init={{
