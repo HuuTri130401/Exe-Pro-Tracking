@@ -105,14 +105,14 @@ export const addProjectParticipantThunk = createAsyncThunk(
     'addProjectParticipant',
     async (newProjectParticipant, { dispatch, rejectWithValue }) => {
         try {
-            const { statusCode } = await projectApi.addProjectParticipant(newProjectParticipant);
-            if (statusCode === 200) {
-                return statusCode;
+            const payload = await projectApi.addProjectParticipant(newProjectParticipant);
+            if (payload.statusCode === 200) {
+                return payload.statusCode;
             } else {
-                return rejectWithValue("Error when add project participant");
+                return rejectWithValue(payload);
             }
-        } catch ({ message }) {
-            return rejectWithValue(message);
+        } catch (response) {
+            return rejectWithValue(response);
         }
     }
 )

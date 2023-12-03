@@ -93,7 +93,7 @@ const UserManagement = ({ isOpenUserManagement, setIsOpenUserManagement }) => {
                                 postSuccessChange();
                             }
                             if (response.type == addProjectParticipantThunk.rejected) {
-                                openNotification('error', 'Add participant failed', response.error.message);
+                                openNotification('error', 'Add participant failed', response.payload.message);
                             }
                             setAddingParticipant(false);
                         });
